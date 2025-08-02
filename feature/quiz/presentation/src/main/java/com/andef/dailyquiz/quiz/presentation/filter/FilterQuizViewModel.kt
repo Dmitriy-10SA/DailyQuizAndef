@@ -29,7 +29,13 @@ class FilterQuizViewModel @Inject constructor() : ViewModel() {
                 stateChange(quizDifficultyExpanded = intent.expanded)
             }
 
-            is FilterQuizIntent.LoadQuestions -> TODO()
+            is FilterQuizIntent.LoadQuestions -> {
+                try {
+                    error("")
+                } catch (_: Exception) {
+                    intent.onError("Ошибка!")
+                }
+            }
         }
     }
 

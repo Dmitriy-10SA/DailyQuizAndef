@@ -6,23 +6,29 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.quiz.presentation.filter.FilterQuizScreen
+import kotlinx.coroutines.launch
 
 @Composable
 fun CollectScreen(
     navHostController: NavHostController,
     viewModelFactory: ViewModelFactory,
+    snackbarHostState: SnackbarHostState,
     paddingValues: PaddingValues
 ) {
     val viewModel: CollectScreenViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
+
+    val scope = rememberCoroutineScope()
 
     AnimatedContent(
         targetState = state.value.step
@@ -46,7 +52,10 @@ fun CollectScreen(
                             )
                         },
                         onErrorQuestionsLoad = { msg ->
-
+                            scope.launch {
+                                snackbarHostState.currentSnackbarData?.dismiss()
+                                snackbarHostState.showSnackbar(message = msg)
+                            }
                         }
                     )
                 }

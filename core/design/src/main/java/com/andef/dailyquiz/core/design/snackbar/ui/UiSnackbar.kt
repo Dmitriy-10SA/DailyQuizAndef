@@ -1,5 +1,6 @@
 package com.andef.dailyquiz.core.design.snackbar.ui
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Snackbar
@@ -30,7 +31,9 @@ fun UiSnackbar(modifier: Modifier = Modifier, snackbarHostState: SnackbarHostSta
             contentColor = White,
             content = {
                 Text(
-                    modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp, vertical = 8.dp),
                     text = data.visuals.message,
                     fontSize = 14.sp,
                     letterSpacing = 0.sp,
