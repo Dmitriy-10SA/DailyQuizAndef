@@ -21,4 +21,14 @@ dependencyResolutionManagement {
 
 rootProject.name = "DailyQuizAndef"
 include(":app")
- 
+
+include(":core")
+include(":core:di")
+include(":core:navigation")
+include(":core:data")
+include(":core:design")
+include(":core:di:common")
+include(":core:di:viewmodel")
+include(":core:domain")
+include(":core:navigation:graph")
+include(":core:navigation:routes")
