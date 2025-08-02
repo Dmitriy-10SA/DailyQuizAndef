@@ -1,4 +1,4 @@
-package com.andef.dailyquiz.ui.theme
+package com.andef.dailyquiz.core.design
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

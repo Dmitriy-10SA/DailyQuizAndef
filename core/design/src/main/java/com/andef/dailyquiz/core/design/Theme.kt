@@ -1,4 +1,4 @@
-package com.andef.dailyquiz.ui.theme
+package com.andef.dailyquiz.core.design
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
