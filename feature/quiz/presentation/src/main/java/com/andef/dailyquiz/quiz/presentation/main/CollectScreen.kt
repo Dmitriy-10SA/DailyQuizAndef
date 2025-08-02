@@ -17,6 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.quiz.presentation.filter.FilterQuizScreen
+import com.andef.dailyquiz.quiz.presentation.quiz.QuizScreen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -46,10 +47,13 @@ fun CollectScreen(
                 CollectScreenStep.Filter -> {
                     FilterQuizScreen(
                         viewModelFactory = viewModelFactory,
-                        onSuccessQuestionsLoad = { questions ->
+                        onSuccessQuestionsLoad = { questions, shuffledAnswers ->
                             viewModel.send(
                                 CollectScreenIntent.StepChange(
-                                    step = CollectScreenStep.Quiz(questions = questions)
+                                    step = CollectScreenStep.Quiz(
+                                        questions = questions,
+                                        shuffledAnswers = shuffledAnswers
+                                    )
                                 )
                             )
                         },
@@ -63,7 +67,11 @@ fun CollectScreen(
                 }
 
                 is CollectScreenStep.Quiz -> {
-
+                    QuizScreen(
+                        questions = step.questions,
+                        shuffledAnswers = step.shuffledAnswers,
+                        viewModelFactory = viewModelFactory
+                    )
                 }
 
                 CollectScreenStep.Result -> {

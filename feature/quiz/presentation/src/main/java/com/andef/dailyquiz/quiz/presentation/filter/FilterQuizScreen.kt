@@ -36,7 +36,7 @@ import com.andef.dailyquiz.quiz.domain.entities.Question
 @Composable
 fun ColumnScope.FilterQuizScreen(
     viewModelFactory: ViewModelFactory,
-    onSuccessQuestionsLoad: (List<Question>) -> Unit,
+    onSuccessQuestionsLoad: (List<Question>, List<List<String>>) -> Unit,
     onErrorQuestionsLoad: (Int) -> Unit
 ) {
     val viewModel: FilterQuizViewModel = viewModel(factory = viewModelFactory)
@@ -74,7 +74,7 @@ fun ColumnScope.FilterQuizScreen(
 }
 
 @Composable
-private fun MainContent(
+private fun ColumnScope.MainContent(
     state: State<FilterQuizState>,
     onQuizCategoryClick: (QuizCategory) -> Unit,
     onQuizCategoryExpandedChange: (Boolean) -> Unit,
@@ -115,7 +115,7 @@ private fun MainContent(
 }
 
 @Composable
-private fun FilterMenus(
+private fun ColumnScope.FilterMenus(
     state: State<FilterQuizState>,
     onQuizCategoryClick: (QuizCategory) -> Unit,
     onQuizCategoryExpandedChange: (Boolean) -> Unit,

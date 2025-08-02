@@ -10,7 +10,7 @@ sealed class FilterQuizIntent {
     data class QuizDifficultyChange(val difficulty: QuizDifficulty) : FilterQuizIntent()
     data class QuizDifficultyExpandedChange(val expanded: Boolean) : FilterQuizIntent()
     data class LoadQuestions(
-        val onSuccess: (List<Question>) -> Unit,
+        val onSuccess: (List<Question>, List<List<String>>) -> Unit,
         val onError: (Int) -> Unit
     ) : FilterQuizIntent()
 }

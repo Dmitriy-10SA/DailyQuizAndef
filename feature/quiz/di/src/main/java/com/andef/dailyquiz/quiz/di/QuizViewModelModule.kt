@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelKey
 import com.andef.dailyquiz.quiz.presentation.main.CollectScreenViewModel
 import com.andef.dailyquiz.quiz.presentation.filter.FilterQuizViewModel
+import com.andef.dailyquiz.quiz.presentation.quiz.QuizScreenViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -19,4 +20,9 @@ interface QuizViewModelModule {
     @IntoMap
     @ViewModelKey(FilterQuizViewModel::class)
     fun bindFilterQuizViewModel(impl: FilterQuizViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(QuizScreenViewModel::class)
+    fun bindQuizScreenViewModel(impl: QuizScreenViewModel): ViewModel
 }

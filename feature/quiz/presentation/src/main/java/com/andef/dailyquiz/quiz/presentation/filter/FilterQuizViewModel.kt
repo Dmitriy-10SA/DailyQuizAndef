@@ -44,7 +44,10 @@ class FilterQuizViewModel @Inject constructor(
         }
     }
 
-    private fun loadQuestions(onSuccess: (List<Question>) -> Unit, onError: (Int) -> Unit) {
+    private fun loadQuestions(
+        onSuccess: (List<Question>, List<List<String>>) -> Unit,
+        onError: (Int) -> Unit
+    ) {
         viewModelScope.launch {
             try {
                 _state.value = _state.value.copy(isLoading = true)
@@ -53,9 +56,19 @@ class FilterQuizViewModel @Inject constructor(
                 val quizDifficulty = _state.value.quizDifficulty
                     ?: throw IllegalArgumentException("Quiz difficulty is not selected")
                 val questions = withContext(Dispatchers.IO) {
-                    loadQuestionsUseCase(category = quizCategory, difficulty = quizDifficulty)
+                    loadQuestionsUseCase.invoke(
+                        category = quizCategory,
+                        difficulty = quizDifficulty
+                    )
                 }
-                onSuccess(questions)
+                val shuffledAnswers = withContext(Dispatchers.IO) {
+                    mutableListOf<List<String>>().apply {
+                        questions.forEach { question ->
+                            add(question.incorrectAnswers.plus(question.correctAnswer).shuffled())
+                        }
+                    }
+                }
+                onSuccess(questions, shuffledAnswers)
             } catch (_: Exception) {
                 onError(R.string.error_toast_msg)
             } finally {
