@@ -1,6 +1,12 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+
+    //Room
+    id("com.google.devtools.ksp")
+
+    //Dagger 2
+    id("kotlin-kapt")
 }
 
 android {
@@ -33,6 +39,29 @@ android {
 }
 
 dependencies {
+    //Dagger 2
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
+    //Retrofit
+    implementation(libs.gson)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    //core:domain
+    implementation(project(":core:domain"))
+
+    //feature:history
+    implementation(project(":feature:history:domain"))
+
+    //feature:quiz
+    implementation(project(":feature:quiz:domain"))
+    implementation(project(":feature:quiz:data"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
