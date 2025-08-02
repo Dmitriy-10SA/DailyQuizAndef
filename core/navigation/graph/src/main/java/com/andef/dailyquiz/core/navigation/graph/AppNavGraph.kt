@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.core.navigation.routes.Screen
+import com.andef.dailyquiz.quiz.presentation.QuizScreen
 import com.andef.dailyquiz.start.presentation.StartScreen
 
 @Composable
@@ -23,7 +24,11 @@ fun AppNavGraph(
             StartScreen(navHostController = navHostController, paddingValues = paddingValues)
         }
         composable(route = Screen.Quiz.route) {
-
+            QuizScreen(
+                navHostController = navHostController,
+                viewModelFactory = viewModelFactory,
+                paddingValues = paddingValues
+            )
         }
         composable(route = Screen.History.route) {
 
