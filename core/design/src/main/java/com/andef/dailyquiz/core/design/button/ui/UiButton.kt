@@ -11,8 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -44,17 +42,17 @@ fun UiButton(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = text.uppercase(),
+                text = text,
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.inter)),
                 fontWeight = FontWeight.W900,
                 lineHeight = 16.sp,
                 letterSpacing = 0.sp
             )
-            if (type == UiButtonType.History) {
+            if (type is UiButtonType.WithIcon) {
                 Icon(
-                    painter = painterResource(R.drawable.history),
-                    contentDescription = stringResource(R.string.history_icon),
+                    painter = type.icon,
+                    contentDescription = type.contentDescription,
                 )
             }
         }
@@ -63,7 +61,7 @@ fun UiButton(
 
 private fun getContentPaddingByType(type: UiButtonType) = when (type) {
     UiButtonType.Main, UiButtonType.Secondary -> PaddingValues(16.dp)
-    UiButtonType.History -> PaddingValues(12.dp)
+    is UiButtonType.WithIcon -> PaddingValues(12.dp)
 }
 
 @Composable
