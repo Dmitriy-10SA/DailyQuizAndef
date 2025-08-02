@@ -33,7 +33,7 @@ fun UiButton(
         modifier = modifier,
         onClick = onClick,
         enabled = enabled,
-        shape = shape,
+        shape = getShapeByType(type = type),
         colors = colors(type = type),
         contentPadding = getContentPaddingByType(type = type)
     ) {
@@ -72,4 +72,7 @@ private fun colors(type: UiButtonType) = ButtonDefaults.buttonColors(
     disabledContentColor = White
 )
 
-private val shape = RoundedCornerShape(16.dp)
+private fun getShapeByType(type: UiButtonType) = when (type) {
+    UiButtonType.Main, UiButtonType.Secondary -> RoundedCornerShape(16.dp)
+    is UiButtonType.WithIcon -> RoundedCornerShape(24.dp)
+}

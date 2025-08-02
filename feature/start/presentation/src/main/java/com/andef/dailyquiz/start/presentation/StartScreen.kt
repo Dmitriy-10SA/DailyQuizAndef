@@ -1,5 +1,6 @@
 package com.andef.dailyquiz.start.presentation
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -9,12 +10,12 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,11 +50,12 @@ fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValu
             ),
             onClick = { navHostController.navigate(Screen.History.route) }
         )
-        Icon(
+        Image(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 116.dp)
                 .padding(horizontal = 40.dp),
+            contentScale = ContentScale.FillWidth,
             painter = painterResource(com.andef.dailyquiz.core.design.R.drawable.logo),
             contentDescription = stringResource(R.string.daily_quiz_logo)
         )
