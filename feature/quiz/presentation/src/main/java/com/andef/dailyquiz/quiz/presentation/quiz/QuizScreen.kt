@@ -193,7 +193,7 @@ private fun InitEffect(
                 shuffledAnswers = shuffledAnswers,
                 onQuizFinished = { success ->
                     when (success) {
-                        true -> TODO()
+                        true -> TODO("Добавляем в базу данных. Бла-бла-бла")
                         false -> TODO("Показываем время вышло. Бла-бла-бла")
                     }
                 }
