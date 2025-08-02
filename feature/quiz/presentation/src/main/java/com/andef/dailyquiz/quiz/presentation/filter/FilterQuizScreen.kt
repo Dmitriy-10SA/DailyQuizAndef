@@ -1,4 +1,4 @@
-package com.andef.dailyquiz.quiz.presentation
+package com.andef.dailyquiz.quiz.presentation.filter
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -18,31 +19,36 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.andef.dailyquiz.core.design.Black
+import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
 import com.andef.dailyquiz.core.design.menu.ui.UiMenu
+import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.core.domain.entites.QuizCategory
 import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
 import com.andef.dailyquiz.core.utils.getQuizCategoryAsString
 import com.andef.dailyquiz.core.utils.getQuizDifficultyAsString
+import com.andef.dailyquiz.quiz.domain.entities.Question
 
 @Composable
 fun ColumnScope.FilterQuizScreen(
-    state: State<QuizState>,
-    onQuizCategoryClick: (QuizCategory) -> Unit,
-    onQuizCategoryExpandedChange: (Boolean) -> Unit,
-    onQuizDifficultyClick: (QuizDifficulty) -> Unit,
-    onQuizDifficultyExpandedChange: (Boolean) -> Unit
+    viewModelFactory: ViewModelFactory,
+    onSuccessQuestionsLoad: (List<Question>) -> Unit,
+    onErrorQuestionsLoad: (String) -> Unit
 ) {
+    val viewModel: FilterQuizViewModel = viewModel(factory = viewModelFactory)
+    val state = viewModel.state.collectAsState()
+
     Image(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 41.dp)
             .padding(horizontal = 90.dp),
         contentScale = ContentScale.FillWidth,
-        painter = painterResource(com.andef.dailyquiz.core.design.R.drawable.logo),
-        contentDescription = stringResource(com.andef.dailyquiz.core.design.R.string.daily_quiz_logo)
+        painter = painterResource(R.drawable.logo),
+        contentDescription = stringResource(R.string.daily_quiz_logo)
     )
     UiCard(
         modifier = Modifier
@@ -53,17 +59,30 @@ fun ColumnScope.FilterQuizScreen(
         TitleAndSubtitleForUiCard()
         FilterMenus(
             state = state,
-            onQuizCategoryClick = onQuizCategoryClick,
-            onQuizCategoryExpandedChange = onQuizCategoryExpandedChange,
-            onQuizDifficultyClick = onQuizDifficultyClick,
-            onQuizDifficultyExpandedChange = onQuizDifficultyExpandedChange
+            onQuizCategoryClick = { category ->
+                viewModel.send(FilterQuizIntent.QuizCategoryChange(category))
+            },
+            onQuizCategoryExpandedChange = { expanded ->
+                viewModel.send(FilterQuizIntent.QuizCategoryExpandedChange(expanded))
+            },
+            onQuizDifficultyClick = { difficulty ->
+                viewModel.send(FilterQuizIntent.QuizDifficultyChange(difficulty))
+            },
+            onQuizDifficultyExpandedChange = { expanded ->
+                viewModel.send(FilterQuizIntent.QuizDifficultyExpandedChange(expanded))
+            }
         )
         UiButton(
             modifier = Modifier.fillMaxWidth(),
             onClick = {
-                TODO()
+                viewModel.send(
+                    FilterQuizIntent.LoadQuestions(
+                        onSuccess = onSuccessQuestionsLoad,
+                        onError = onErrorQuestionsLoad
+                    )
+                )
             },
-            text = stringResource(com.andef.dailyquiz.core.design.R.string.further),
+            text = stringResource(R.string.further),
             enabled = state.value.furtherButtonEnabled
         )
     }
@@ -71,7 +90,7 @@ fun ColumnScope.FilterQuizScreen(
 
 @Composable
 private fun FilterMenus(
-    state: State<QuizState>,
+    state: State<FilterQuizState>,
     onQuizCategoryClick: (QuizCategory) -> Unit,
     onQuizCategoryExpandedChange: (Boolean) -> Unit,
     onQuizDifficultyClick: (QuizDifficulty) -> Unit,
@@ -87,7 +106,7 @@ private fun FilterMenus(
             items = QuizCategory.entries.toList(),
             itemToString = { category -> getQuizCategoryAsString(category) },
             value = state.value.quizCategory?.let { getQuizCategoryAsString(it) } ?: "",
-            placeholderText = stringResource(com.andef.dailyquiz.core.design.R.string.category),
+            placeholderText = stringResource(R.string.category),
             onItemClick = { category ->
                 onQuizCategoryExpandedChange(false)
                 onQuizCategoryClick(category)
@@ -100,7 +119,7 @@ private fun FilterMenus(
             items = QuizDifficulty.entries.toList(),
             itemToString = { difficulty -> getQuizDifficultyAsString(difficulty) },
             value = state.value.quizDifficulty?.let { getQuizDifficultyAsString(it) } ?: "",
-            placeholderText = stringResource(com.andef.dailyquiz.core.design.R.string.difficulty),
+            placeholderText = stringResource(R.string.difficulty),
             onItemClick = { difficulty ->
                 onQuizDifficultyExpandedChange(false)
                 onQuizDifficultyClick(difficulty)
@@ -120,7 +139,7 @@ private fun ColumnScope.TitleAndSubtitleForUiCard() {
     ) {
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(com.andef.dailyquiz.core.design.R.string.almost_ready),
+            text = stringResource(R.string.almost_ready),
             fontSize = 24.sp,
             fontWeight = FontWeight.W700,
             letterSpacing = 0.sp,
@@ -130,7 +149,7 @@ private fun ColumnScope.TitleAndSubtitleForUiCard() {
         )
         Text(
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(com.andef.dailyquiz.core.design.R.string.remains_to_choose_dif),
+            text = stringResource(R.string.remains_to_choose_dif),
             fontSize = 16.sp,
             fontWeight = FontWeight.W400,
             letterSpacing = 0.sp,

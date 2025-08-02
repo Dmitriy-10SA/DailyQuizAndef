@@ -1,4 +1,4 @@
-package com.andef.dailyquiz.quiz.presentation
+package com.andef.dailyquiz.quiz.presentation.main
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Column
@@ -13,14 +13,15 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
+import com.andef.dailyquiz.quiz.presentation.filter.FilterQuizScreen
 
 @Composable
-fun QuizScreen(
+fun CollectScreen(
     navHostController: NavHostController,
     viewModelFactory: ViewModelFactory,
     paddingValues: PaddingValues
 ) {
-    val viewModel: QuizViewModel = viewModel(factory = viewModelFactory)
+    val viewModel: CollectScreenViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
 
     AnimatedContent(
@@ -34,29 +35,27 @@ fun QuizScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             when (step) {
-                QuizStep.Filter -> {
+                CollectScreenStep.Filter -> {
                     FilterQuizScreen(
-                        state = state,
-                        onQuizCategoryClick = { category ->
-                            viewModel.send(QuizIntent.QuizCategoryChange(category))
+                        viewModelFactory = viewModelFactory,
+                        onSuccessQuestionsLoad = { questions ->
+                            viewModel.send(
+                                CollectScreenIntent.StepChange(
+                                    step = CollectScreenStep.Quiz(questions = questions)
+                                )
+                            )
                         },
-                        onQuizDifficultyClick = { difficulty ->
-                            viewModel.send(QuizIntent.QuizDifficultyChange(difficulty))
-                        },
-                        onQuizCategoryExpandedChange = { expanded ->
-                            viewModel.send(QuizIntent.QuizCategoryExpandedChange(expanded))
-                        },
-                        onQuizDifficultyExpandedChange = { expanded ->
-                            viewModel.send(QuizIntent.QuizDifficultyExpandedChange(expanded))
+                        onErrorQuestionsLoad = { msg ->
+
                         }
                     )
                 }
 
-                QuizStep.Quiz -> {
+                is CollectScreenStep.Quiz -> {
 
                 }
 
-                QuizStep.Result -> {
+                CollectScreenStep.Result -> {
 
                 }
             }

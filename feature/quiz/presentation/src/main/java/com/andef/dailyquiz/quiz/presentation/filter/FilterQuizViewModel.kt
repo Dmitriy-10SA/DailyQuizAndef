@@ -1,4 +1,4 @@
-package com.andef.dailyquiz.quiz.presentation
+package com.andef.dailyquiz.quiz.presentation.filter
 
 import androidx.lifecycle.ViewModel
 import com.andef.dailyquiz.core.domain.entites.QuizCategory
@@ -7,31 +7,33 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class QuizViewModel @Inject constructor() : ViewModel() {
-    private val _state = MutableStateFlow(QuizState())
-    val state: StateFlow<QuizState> = _state
+class FilterQuizViewModel @Inject constructor() : ViewModel() {
+    private val _state = MutableStateFlow(FilterQuizState())
+    val state: StateFlow<FilterQuizState> = _state
 
-    fun send(intent: QuizIntent) {
+    fun send(intent: FilterQuizIntent) {
         when (intent) {
-            is QuizIntent.QuizCategoryChange -> {
-                filterChange(quizCategory = intent.category)
+            is FilterQuizIntent.QuizCategoryChange -> {
+                stateChange(quizCategory = intent.category)
             }
 
-            is QuizIntent.QuizCategoryExpandedChange -> {
-                filterChange(quizCategoryExpanded = intent.expanded)
+            is FilterQuizIntent.QuizCategoryExpandedChange -> {
+                stateChange(quizCategoryExpanded = intent.expanded)
             }
 
-            is QuizIntent.QuizDifficultyChange -> {
-                filterChange(quizDifficulty = intent.difficulty)
+            is FilterQuizIntent.QuizDifficultyChange -> {
+                stateChange(quizDifficulty = intent.difficulty)
             }
 
-            is QuizIntent.QuizDifficultyExpandedChange -> {
-                filterChange(quizDifficultyExpanded = intent.expanded)
+            is FilterQuizIntent.QuizDifficultyExpandedChange -> {
+                stateChange(quizDifficultyExpanded = intent.expanded)
             }
+
+            is FilterQuizIntent.LoadQuestions -> TODO()
         }
     }
 
-    private fun filterChange(
+    private fun stateChange(
         quizCategory: QuizCategory? = _state.value.quizCategory,
         quizDifficulty: QuizDifficulty? = _state.value.quizDifficulty,
         quizCategoryExpanded: Boolean = _state.value.quizCategoryExpanded,
