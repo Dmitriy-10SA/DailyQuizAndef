@@ -34,7 +34,7 @@ import com.andef.dailyquiz.core.design.R
 fun <T> UiMenu(
     modifier: Modifier = Modifier,
     items: List<T>,
-    itemToString: (T) -> String,
+    itemToString: @Composable (T) -> String,
     value: String,
     placeholderText: String,
     onItemClick: (T) -> Unit,
