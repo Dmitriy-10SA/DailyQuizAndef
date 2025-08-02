@@ -45,8 +45,8 @@ class FilterQuizViewModel @Inject constructor(
     }
 
     private fun loadQuestions(onSuccess: (List<Question>) -> Unit, onError: (Int) -> Unit) {
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 _state.value = _state.value.copy(isLoading = true)
                 val quizCategory = _state.value.quizCategory
                     ?: throw IllegalArgumentException("Quiz category is not selected")
@@ -56,11 +56,11 @@ class FilterQuizViewModel @Inject constructor(
                     loadQuestionsUseCase(category = quizCategory, difficulty = quizDifficulty)
                 }
                 onSuccess(questions)
+            } catch (_: Exception) {
+                onError(R.string.error_toast_msg)
+            } finally {
+                _state.value = _state.value.copy(isLoading = false)
             }
-        } catch (_: Exception) {
-            onError(R.string.error_toast_msg)
-        } finally {
-            _state.value = _state.value.copy(isLoading = false)
         }
     }
 

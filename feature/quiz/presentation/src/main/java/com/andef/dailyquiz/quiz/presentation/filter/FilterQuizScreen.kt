@@ -24,6 +24,7 @@ import com.andef.dailyquiz.core.design.Black
 import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
+import com.andef.dailyquiz.core.design.loading.ui.UiLoading
 import com.andef.dailyquiz.core.design.menu.ui.UiMenu
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.core.domain.entites.QuizCategory
@@ -42,9 +43,7 @@ fun ColumnScope.FilterQuizScreen(
     val state = viewModel.state.collectAsState()
 
     when (state.value.isLoading) {
-        true -> {
-
-        }
+        true -> UiLoading()
 
         false -> {
             MainContent(
