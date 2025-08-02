@@ -36,11 +36,53 @@ import com.andef.dailyquiz.quiz.domain.entities.Question
 fun ColumnScope.FilterQuizScreen(
     viewModelFactory: ViewModelFactory,
     onSuccessQuestionsLoad: (List<Question>) -> Unit,
-    onErrorQuestionsLoad: (String) -> Unit
+    onErrorQuestionsLoad: (Int) -> Unit
 ) {
     val viewModel: FilterQuizViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
 
+    when (state.value.isLoading) {
+        true -> {
+
+        }
+
+        false -> {
+            MainContent(
+                state = state,
+                onQuizCategoryClick = { category ->
+                    viewModel.send(FilterQuizIntent.QuizCategoryChange(category))
+                },
+                onQuizCategoryExpandedChange = { expanded ->
+                    viewModel.send(FilterQuizIntent.QuizCategoryExpandedChange(expanded))
+                },
+                onQuizDifficultyClick = { difficulty ->
+                    viewModel.send(FilterQuizIntent.QuizDifficultyChange(difficulty))
+                },
+                onQuizDifficultyExpandedChange = { expanded ->
+                    viewModel.send(FilterQuizIntent.QuizDifficultyExpandedChange(expanded))
+                },
+                onStartQuizButtonClick = {
+                    viewModel.send(
+                        FilterQuizIntent.LoadQuestions(
+                            onSuccess = onSuccessQuestionsLoad,
+                            onError = onErrorQuestionsLoad
+                        )
+                    )
+                }
+            )
+        }
+    }
+}
+
+@Composable
+private fun MainContent(
+    state: State<FilterQuizState>,
+    onQuizCategoryClick: (QuizCategory) -> Unit,
+    onQuizCategoryExpandedChange: (Boolean) -> Unit,
+    onQuizDifficultyClick: (QuizDifficulty) -> Unit,
+    onQuizDifficultyExpandedChange: (Boolean) -> Unit,
+    onStartQuizButtonClick: () -> Unit
+) {
     Image(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,29 +101,14 @@ fun ColumnScope.FilterQuizScreen(
         TitleAndSubtitleForUiCard()
         FilterMenus(
             state = state,
-            onQuizCategoryClick = { category ->
-                viewModel.send(FilterQuizIntent.QuizCategoryChange(category))
-            },
-            onQuizCategoryExpandedChange = { expanded ->
-                viewModel.send(FilterQuizIntent.QuizCategoryExpandedChange(expanded))
-            },
-            onQuizDifficultyClick = { difficulty ->
-                viewModel.send(FilterQuizIntent.QuizDifficultyChange(difficulty))
-            },
-            onQuizDifficultyExpandedChange = { expanded ->
-                viewModel.send(FilterQuizIntent.QuizDifficultyExpandedChange(expanded))
-            }
+            onQuizCategoryExpandedChange = onQuizCategoryExpandedChange,
+            onQuizCategoryClick = onQuizCategoryClick,
+            onQuizDifficultyClick = onQuizDifficultyClick,
+            onQuizDifficultyExpandedChange = onQuizDifficultyExpandedChange
         )
         UiButton(
             modifier = Modifier.fillMaxWidth(),
-            onClick = {
-                viewModel.send(
-                    FilterQuizIntent.LoadQuestions(
-                        onSuccess = onSuccessQuestionsLoad,
-                        onError = onErrorQuestionsLoad
-                    )
-                )
-            },
+            onClick = onStartQuizButtonClick,
             text = stringResource(R.string.further),
             enabled = state.value.furtherButtonEnabled
         )

@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
@@ -28,6 +29,7 @@ fun CollectScreen(
     val viewModel: CollectScreenViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
 
+    val context = LocalContext.current
     val scope = rememberCoroutineScope()
 
     AnimatedContent(
@@ -51,10 +53,10 @@ fun CollectScreen(
                                 )
                             )
                         },
-                        onErrorQuestionsLoad = { msg ->
+                        onErrorQuestionsLoad = { msgResId ->
                             scope.launch {
                                 snackbarHostState.currentSnackbarData?.dismiss()
-                                snackbarHostState.showSnackbar(message = msg)
+                                snackbarHostState.showSnackbar(context.getString(msgResId))
                             }
                         }
                     )
