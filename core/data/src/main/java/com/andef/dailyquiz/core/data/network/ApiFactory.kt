@@ -5,9 +5,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 /**
- * Фабрика для получения QuestionApiService
+ * Фабрика для получения сетевого сервиса [QuestionApiService].
  *
- * @property QuestionApiService ApiService для получения вопросов к викторине
+ * Конфигурирует Retrofit с базовым URL и конвертером Gson.
  */
 class ApiFactory {
     companion object {
@@ -18,6 +18,9 @@ class ApiFactory {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+        /**
+         * Сервис API для получения вопросов викторины.
+         */
         val questionApiService: QuestionApiService = retrofit.create(QuestionApiService::class.java)
     }
 }

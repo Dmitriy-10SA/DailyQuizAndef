@@ -7,15 +7,15 @@ import java.time.LocalTime
 import javax.inject.Inject
 
 /**
- * Маппер для сущности викторина
- *
- * @property toQuizDbo маппинг из domain-сущности в data-сущность
- * @property toQuizDbo маппинг из data-сущности в domain-сущность
+ * Маппер для преобразования между domain- и data-сущностями викторины.
  *
  * @see QuizDbo
  * @see Quiz
  */
 class QuizMapper @Inject constructor() {
+    /**
+     * Преобразование domain-сущности [Quiz] в data-сущность [QuizDbo].
+     */
     fun toQuizDbo(quiz: Quiz) = QuizDbo(
         id = quiz.id,
         correctAnswersCnt = quiz.correctAnswersCnt,
@@ -25,6 +25,9 @@ class QuizMapper @Inject constructor() {
         difficulty = quiz.difficulty
     )
 
+    /**
+     * Преобразование data-сущности [QuizDbo] в domain-сущность [Quiz].
+     */
     fun toQuiz(quizDbo: QuizDbo) = Quiz(
         id = quizDbo.id,
         correctAnswersCnt = quizDbo.correctAnswersCnt,

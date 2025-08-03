@@ -8,7 +8,9 @@ import com.andef.dailyquiz.core.data.db.dao.QuizDao
 import com.andef.dailyquiz.core.data.db.dbo.QuizDbo
 
 /**
- * БД для приложения
+ * База данных приложения.
+ *
+ * Предоставляет DAO для работы с викторинами.
  *
  * @property quizDao DAO для сущности викторина
  *

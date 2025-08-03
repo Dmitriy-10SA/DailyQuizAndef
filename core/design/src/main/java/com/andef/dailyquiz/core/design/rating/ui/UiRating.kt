@@ -16,6 +16,11 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.andef.dailyquiz.core.design.R
 
+/**
+ * Компонент UI для показа рейтинга (5 звезд)
+ *
+ * @
+ */
 @Composable
 fun UiRating(modifier: Modifier = Modifier, rating: Int, starSize: Dp = 52.dp) {
     Row(

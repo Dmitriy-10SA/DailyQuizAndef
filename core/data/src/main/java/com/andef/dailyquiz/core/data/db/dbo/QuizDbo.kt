@@ -7,12 +7,12 @@ import com.andef.dailyquiz.core.domain.entites.QuizCategory
 import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
 
 /**
- * Сущность викторина для БД
+ * Сущность викторина для хранения в базе данных.
  *
- * @property id идентификатор (автоинкриментируемый)
- * @property correctAnswersCnt кол-во правильных ответов пользователя в данной викторине
- * @property date дата, в которую пользователь закончил викторину
- * @property time время, в которое пользователь закончил викторину
+ * @property id идентификатор (автоинкрементируемый)
+ * @property correctAnswersCnt количество правильных ответов пользователя в викторине
+ * @property date дата завершения викторины (формат строки)
+ * @property time время завершения викторины (формат строки)
  * @property category категория викторины
  * @property difficulty сложность викторины
  *
