@@ -9,6 +9,7 @@ interface QuestionApiService {
     suspend fun loadQuestions(
         @Query("amount") amount: Int = 5,
         @Query("category") category: Int,
-        @Query("difficulty") difficulty: String
+        @Query("difficulty") difficulty: String,
+        @Query("type") type: String = "multiple"
     ): QuestionApiResponseDto
 }

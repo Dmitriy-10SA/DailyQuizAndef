@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface QuizDao {
     @Query("""
     SELECT * FROM quiz
-    ORDER BY finished_date DESC, finished_time DESC
+    ORDER BY finished_date ASC, finished_time ASC
     """)
     fun getQuizzes(): Flow<List<QuizDbo>>
 
