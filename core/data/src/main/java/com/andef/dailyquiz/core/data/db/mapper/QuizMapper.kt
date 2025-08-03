@@ -6,6 +6,15 @@ import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
 
+/**
+ * Маппер для сущности викторина
+ *
+ * @property toQuizDbo маппинг из domain-сущности в data-сущность
+ * @property toQuizDbo маппинг из data-сущности в domain-сущность
+ *
+ * @see Quiz
+ * @see QuizDbo
+ */
 class QuizMapper @Inject constructor() {
     fun toQuizDbo(quiz: Quiz) = QuizDbo(
         id = quiz.id,
