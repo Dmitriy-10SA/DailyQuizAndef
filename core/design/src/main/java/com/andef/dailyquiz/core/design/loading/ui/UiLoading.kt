@@ -13,6 +13,9 @@ import androidx.compose.ui.unit.dp
 import com.andef.dailyquiz.core.design.SoftLilac
 import com.andef.dailyquiz.core.design.White
 
+/**
+ * Индикатор загрузки (на весь экран по центру кружок)
+ */
 @Composable
 fun UiLoading() {
     Box(
