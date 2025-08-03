@@ -4,6 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.andef.dailyquiz.core.domain.entites.QuizCategory
 
+/**
+ * Получение категории викторины в строковом виде
+ *
+ * @see QuizCategory
+ */
 @Composable
 fun getQuizCategoryAsString(category: QuizCategory) = when (category) {
     QuizCategory.GENERAL_KNOWLEDGE -> stringResource(com.andef.dailyquiz.core.design.R.string.category_general_knowledge)
