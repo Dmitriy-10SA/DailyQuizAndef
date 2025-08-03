@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.core.navigation.routes.Screen
+import com.andef.dailyquiz.history.presentation.HistoryScreen
 import com.andef.dailyquiz.quiz.presentation.main.CollectScreen
 import com.andef.dailyquiz.start.presentation.StartScreen
 
@@ -34,7 +35,11 @@ fun AppNavGraph(
             )
         }
         composable(route = Screen.History.route) {
-
+            HistoryScreen(
+                navHostController = navHostController,
+                viewModelFactory = viewModelFactory,
+                paddingValues = paddingValues
+            )
         }
     }
 }

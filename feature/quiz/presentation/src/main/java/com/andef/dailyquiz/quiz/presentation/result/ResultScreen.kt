@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -44,45 +47,53 @@ fun ResultScreen(
     shuffledAnswers: List<List<String>>,
     onRetryClick: () -> Unit
 ) {
-    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        Spacer(modifier = Modifier.statusBarsPadding())
-        Spacer(modifier = Modifier.height(38.dp))
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.results),
-            fontSize = 32.sp,
-            fontWeight = FontWeight.W900,
-            letterSpacing = 0.sp,
-            lineHeight = 32.sp,
-            textAlign = TextAlign.Center,
-            color = White
-        )
-        ResultTopCard(
-            correctAnsCnt = correctAnsCnt,
-            questions = questions,
-            onRetryClick = onRetryClick
-        )
-        questions.forEachIndexed { index, question ->
-            if (index != 0) Spacer(modifier = Modifier.height(24.dp))
-            QuestionDescriptionCard(
-                index = index,
-                question = question,
-                questions = questions,
-                userAnswers = userAnswers,
-                shuffledAnswers = shuffledAnswers
+    LazyColumn {
+        item { Spacer(modifier = Modifier.statusBarsPadding()) }
+        item { Spacer(modifier = Modifier.height(38.dp)) }
+        item {
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(R.string.results),
+                fontSize = 32.sp,
+                fontWeight = FontWeight.W900,
+                letterSpacing = 0.sp,
+                lineHeight = 32.sp,
+                textAlign = TextAlign.Center,
+                color = White
             )
         }
-        Spacer(modifier = Modifier.height(24.dp))
-        UiButton(
-            text = stringResource(R.string.retry),
-            onClick = onRetryClick,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 105.dp)
-                .padding(horizontal = 50.dp),
-            type = UiButtonType.Secondary
-        )
-        Spacer(modifier = Modifier.navigationBarsPadding())
+        item {
+            ResultTopCard(
+                correctAnsCnt = correctAnsCnt,
+                questions = questions,
+                onRetryClick = onRetryClick
+            )
+        }
+        questions.forEachIndexed { index, question ->
+            item {
+                if (index != 0) Spacer(modifier = Modifier.height(24.dp))
+                QuestionDescriptionCard(
+                    index = index,
+                    question = question,
+                    questions = questions,
+                    userAnswers = userAnswers,
+                    shuffledAnswers = shuffledAnswers
+                )
+            }
+        }
+        item { Spacer(modifier = Modifier.height(24.dp)) }
+        item {
+            UiButton(
+                text = stringResource(R.string.retry),
+                onClick = onRetryClick,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 105.dp)
+                    .padding(horizontal = 50.dp),
+                type = UiButtonType.Secondary
+            )
+        }
+        item { Spacer(modifier = Modifier.navigationBarsPadding()) }
     }
 }
 
