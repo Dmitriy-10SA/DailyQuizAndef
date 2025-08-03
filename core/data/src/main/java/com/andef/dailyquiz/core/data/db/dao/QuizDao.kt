@@ -8,9 +8,13 @@ import com.andef.dailyquiz.core.data.db.dbo.QuizDbo
 import kotlinx.coroutines.flow.Flow
 
 /**
+ * DAO для сущности викторины из БД
+ *
  * @property getQuizzes получение всех пройденных викторин из БД (flow)
  * @property addQuiz добавление викторины в БД
  * @property deleteQuiz удаление викторины из БД
+ *
+ * @see QuizDbo
  */
 @Dao
 interface QuizDao {

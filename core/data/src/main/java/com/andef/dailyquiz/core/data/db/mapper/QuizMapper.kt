@@ -12,8 +12,8 @@ import javax.inject.Inject
  * @property toQuizDbo маппинг из domain-сущности в data-сущность
  * @property toQuizDbo маппинг из data-сущности в domain-сущность
  *
- * @see Quiz
  * @see QuizDbo
+ * @see Quiz
  */
 class QuizMapper @Inject constructor() {
     fun toQuizDbo(quiz: Quiz) = QuizDbo(

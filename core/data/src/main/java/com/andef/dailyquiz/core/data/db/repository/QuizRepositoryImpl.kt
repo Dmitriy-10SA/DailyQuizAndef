@@ -8,6 +8,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
+/**
+ * Репозиторий для сущности викторины из БД
+ *
+ * @property getQuizzes получение всех пройденных викторин из БД (flow)
+ * @property addQuiz добавление викторины в БД
+ * @property deleteQuiz удаление викторины из БД
+ *
+ * @see QuizDao
+ * @see QuizMapper
+ */
 class QuizRepositoryImpl @Inject constructor(
     private val dao: QuizDao,
     private val mapper: QuizMapper

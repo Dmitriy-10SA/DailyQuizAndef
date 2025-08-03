@@ -7,6 +7,13 @@ import androidx.room.RoomDatabase
 import com.andef.dailyquiz.core.data.db.dao.QuizDao
 import com.andef.dailyquiz.core.data.db.dbo.QuizDbo
 
+/**
+ * БД для приложения
+ *
+ * @property quizDao DAO для сущности викторина
+ *
+ * @see QuizDbo
+ */
 @Database(entities = [QuizDbo::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract val quizDao: QuizDao
