@@ -1,0 +1,8 @@
+package com.andef.dayliquiz.history.domain
+
+import com.andef.dailyquiz.core.domain.repository.QuizRepository
+import javax.inject.Inject
+
+class DeleteQuizUseCase @Inject constructor(private val repository: QuizRepository) {
+    suspend operator fun invoke(id: Long) = repository.deleteQuiz(id)
+}
