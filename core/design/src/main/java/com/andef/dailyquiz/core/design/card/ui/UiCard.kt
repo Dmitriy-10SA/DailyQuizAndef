@@ -10,6 +10,14 @@ import androidx.compose.ui.unit.dp
 import com.andef.dailyquiz.core.design.Black
 import com.andef.dailyquiz.core.design.White
 
+/**
+ * Кастомная карточка с единым стилем для приложения.
+ *
+ * Используется как оболочка для контента.
+ *
+ * @param modifier модификатор внешнего вида
+ * @param content содержимое карточки
+ */
 @Composable
 fun UiCard(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
     Card(

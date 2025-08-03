@@ -23,7 +23,16 @@ import com.andef.dailyquiz.core.design.White
 import com.andef.dailyquiz.core.design.button.type.UiButtonType
 
 /**
- * Кнопка
+ * Кастомная кнопка.
+ *
+ * Автоматически применяет стили в зависимости от типа [UiButtonType],
+ * отображает текст и (опционально) иконку.
+ *
+ * @param onClick обработчик нажатия
+ * @param modifier модификатор внешнего вида
+ * @param text текст на кнопке
+ * @param type тип кнопки (по умолчанию [UiButtonType.Main])
+ * @param enabled доступность кнопки
  *
  * @see UiButtonType
  */

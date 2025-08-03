@@ -30,6 +30,20 @@ import com.andef.dailyquiz.core.design.DeepPurple
 import com.andef.dailyquiz.core.design.LightGray
 import com.andef.dailyquiz.core.design.R
 
+/**
+ * Выпадающее меню (dropdown) с возможностью выбора элемента.
+ *
+ * Используется для отображения списка вариантов с кастомной строковой функцией.
+ *
+ * @param modifier модификатор внешнего вида
+ * @param items список доступных элементов
+ * @param itemToString функция преобразования элемента в строку
+ * @param value текущее выбранное значение
+ * @param placeholderText текст-подсказка, когда ничего не выбрано
+ * @param onItemClick обработчик выбора элемента
+ * @param expanded флаг раскрытости меню
+ * @param onExpandedChange обработчик смены состояния раскрытия
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> UiMenu(

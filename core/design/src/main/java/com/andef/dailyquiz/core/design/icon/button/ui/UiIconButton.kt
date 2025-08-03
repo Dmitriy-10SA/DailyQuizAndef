@@ -9,6 +9,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import com.andef.dailyquiz.core.design.White
 
+/**
+ * Кнопка с иконкой.
+ *
+ * Используется, например, в тулбаре или карточке.
+ *
+ * @param modifier модификатор внешнего вида
+ * @param icon изображение иконки
+ * @param contentDescription описание иконки
+ * @param onClick обработчик нажатия
+ * @param enabled доступность кнопки
+ */
 @Composable
 fun UiIconButton(
     modifier: Modifier = Modifier,

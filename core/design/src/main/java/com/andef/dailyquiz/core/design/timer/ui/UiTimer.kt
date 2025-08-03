@@ -25,6 +25,15 @@ import com.andef.dailyquiz.core.design.DeepPurple
 import com.andef.dailyquiz.core.design.LightGray
 import java.util.Locale
 
+/**
+ * Таймер с прогресс-баром.
+ *
+ * Отображает текущее и общее время в формате mm:ss, а также прогресс в виде полосы.
+ *
+ * @param modifier модификатор внешнего вида
+ * @param totalTimeSeconds общее время в секундах
+ * @param currentTimeSeconds текущее время в секундах
+ */
 @Composable
 fun UiTimer(
     modifier: Modifier = Modifier,
@@ -38,45 +47,58 @@ fun UiTimer(
     )
 
     Column(modifier = modifier) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Text(
-                text = formatTime(currentTimeSeconds),
-                fontWeight = FontWeight.W400,
-                fontSize = 12.sp,
-                letterSpacing = 0.sp,
-                lineHeight = 12.sp,
-                textAlign = TextAlign.Center,
-                color = textColor
-            )
-            Text(
-                text = formatTime(totalTimeSeconds),
-                fontWeight = FontWeight.W400,
-                fontSize = 12.sp,
-                letterSpacing = 0.sp,
-                lineHeight = 12.sp,
-                textAlign = TextAlign.Center,
-                color = textColor
-            )
-        }
+        CurrentAndTotalTimeRow(
+            currentTimeSeconds = currentTimeSeconds,
+            totalTimeSeconds = totalTimeSeconds
+        )
         Spacer(modifier = Modifier.height(8.dp))
+        ProgressBar(animatedProgress = animatedProgress)
+    }
+}
+
+@Composable
+private fun ProgressBar(animatedProgress: Float) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(8.dp)
+            .clip(RoundedCornerShape(6.dp))
+            .background(containerColor)
+    ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
+                .fillMaxHeight()
+                .fillMaxWidth(animatedProgress)
                 .clip(RoundedCornerShape(6.dp))
-                .background(containerColor)
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .fillMaxWidth(animatedProgress)
-                    .clip(RoundedCornerShape(6.dp))
-                    .background(textColor)
-            )
-        }
+                .background(textColor)
+        )
+    }
+}
+
+@Composable
+private fun CurrentAndTotalTimeRow(currentTimeSeconds: Int, totalTimeSeconds: Int) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = formatTime(currentTimeSeconds),
+            fontWeight = FontWeight.W400,
+            fontSize = 12.sp,
+            letterSpacing = 0.sp,
+            lineHeight = 12.sp,
+            textAlign = TextAlign.Center,
+            color = textColor
+        )
+        Text(
+            text = formatTime(totalTimeSeconds),
+            fontWeight = FontWeight.W400,
+            fontSize = 12.sp,
+            letterSpacing = 0.sp,
+            lineHeight = 12.sp,
+            textAlign = TextAlign.Center,
+            color = textColor
+        )
     }
 }
 

@@ -22,7 +22,16 @@ import com.andef.dailyquiz.core.design.dialog.type.UiDialogType
 import com.andef.dailyquiz.core.design.text.button.ui.UiTextButton
 
 /**
- * Диалог
+ * Диалог (AlertDialog) с двумя вариантами поведения:
+ * с кнопкой действия или с кнопкой закрытия.
+ *
+ * Отображает заголовок, подзаголовок и кнопку в зависимости от [UiDialogType].
+ *
+ * @param type тип диалога (с действием или только для закрытия)
+ * @param isVisible флаг видимости диалога
+ * @param title заголовок диалога
+ * @param subTitle подзаголовок или пояснительный текст
+ * @param onDismissRequest обработчик закрытия окна
  *
  * @see UiDialogType
  */

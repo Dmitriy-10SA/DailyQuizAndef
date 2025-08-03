@@ -28,7 +28,16 @@ import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.answer.option.type.UiAnswerOptionType
 
 /**
- * UI компонент варианта ответа
+ * UI-компонент варианта ответа для викторины.
+ *
+ * Показывает иконку, текст и обрабатывает клик.
+ * Внешний вид зависит от типа ответа [UiAnswerOptionType].
+ *
+ * @param modifier модификатор внешнего вида
+ * @param text текст варианта ответа
+ * @param enabled доступность для взаимодействия
+ * @param type визуальный тип отображения (например, выбранный, верный и т.д.)
+ * @param onClick обработчик нажатия
  *
  * @see UiAnswerOptionType
  */

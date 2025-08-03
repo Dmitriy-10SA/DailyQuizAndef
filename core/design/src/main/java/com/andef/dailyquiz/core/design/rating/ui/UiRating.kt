@@ -17,9 +17,13 @@ import androidx.compose.ui.unit.dp
 import com.andef.dailyquiz.core.design.R
 
 /**
- * Компонент UI для показа рейтинга (5 звезд)
+ * Компонент рейтинга — визуальное отображение количества звёзд от 0 до 5.
  *
- * @
+ * Используется, например, после прохождения викторины.
+ *
+ * @param modifier модификатор внешнего вида
+ * @param rating значение рейтинга (от 0 до 5)
+ * @param starSize размер каждой звезды
  */
 @Composable
 fun UiRating(modifier: Modifier = Modifier, rating: Int, starSize: Dp = 52.dp) {

@@ -15,6 +15,15 @@ import androidx.compose.ui.unit.sp
 import com.andef.dailyquiz.core.design.IndigoBlue
 import com.andef.dailyquiz.core.design.R
 
+/**
+ * Кастомная текстовая кнопка.
+ *
+ * Используется для второстепенных действий, например, закрытия окна или отмены.
+ *
+ * @param modifier модификатор внешнего вида
+ * @param text текст, отображаемый на кнопке
+ * @param onClick обработчик нажатия
+ */
 @Composable
 fun UiTextButton(modifier: Modifier = Modifier, text: String, onClick: () -> Unit) {
     TextButton(

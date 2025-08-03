@@ -19,6 +19,14 @@ import androidx.compose.ui.unit.sp
 import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.White
 
+/**
+ * Кастомный Snackbar для отображения кратких уведомлений.
+ *
+ * @param modifier модификатор внешнего вида
+ * @param snackbarHostState состояние хоста Snackbar, используемое для управления показом
+ *
+ * @see SnackbarHostState
+ */
 @Composable
 fun UiSnackbar(modifier: Modifier = Modifier, snackbarHostState: SnackbarHostState) {
     SnackbarHost(
