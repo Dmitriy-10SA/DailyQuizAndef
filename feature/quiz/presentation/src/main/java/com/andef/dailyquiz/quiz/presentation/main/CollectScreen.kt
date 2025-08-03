@@ -1,5 +1,6 @@
 package com.andef.dailyquiz.quiz.presentation.main
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -68,6 +69,7 @@ fun CollectScreen(
                         },
                         onBack = navHostController::popBackStack
                     )
+                    BackHandler(onBack = navHostController::popBackStack)
                 }
 
                 is CollectScreenStep.Quiz -> {
@@ -92,6 +94,7 @@ fun CollectScreen(
                         onFailureAddQuiz = navHostController::popBackStack,
                         onFailureFinished = navHostController::popBackStack
                     )
+                    BackHandler {}
                 }
 
                 is CollectScreenStep.Result -> {
@@ -102,6 +105,7 @@ fun CollectScreen(
                         questions = step.questions,
                         onRetryClick = navHostController::popBackStack
                     )
+                    BackHandler(onBack = navHostController::popBackStack)
                 }
             }
         }

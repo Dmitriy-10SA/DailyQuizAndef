@@ -1,6 +1,5 @@
 package com.andef.dailyquiz.quiz.presentation.filter
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -81,7 +80,6 @@ fun ColumnScope.FilterQuizScreen(
             )
         }
     }
-    BackHandler(onBack = onBack)
 }
 
 @Composable
