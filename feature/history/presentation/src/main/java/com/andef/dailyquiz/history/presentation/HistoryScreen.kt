@@ -121,7 +121,7 @@ private fun MainContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(if (selectedQuiz.value != null) IndigoBlue.copy(alpha = 0.5f) else IndigoBlue)
+            .background(if (selectedQuiz.value != null) Black.copy(alpha = 0.3f) else IndigoBlue)
     ) {
         item { Spacer(modifier = Modifier.statusBarsPadding()) }
         item { Header(navHostController = navHostController, selectedQuiz = selectedQuiz) }
@@ -132,7 +132,7 @@ private fun MainContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 20.dp)
-                    .alpha(if (selectedQuiz.value != null && selectedQuiz.value != quiz) 0.5f else 1f),
+                    .alpha(if (selectedQuiz.value != null && selectedQuiz.value != quiz) 0.3f else 1f),
                 correctAnsCnt = quiz.correctAnswersCnt,
                 date = quiz.date,
                 time = quiz.time,
@@ -168,7 +168,7 @@ private fun Header(navHostController: NavHostController, selectedQuiz: MutableSt
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .alpha(if (selectedQuiz.value != null) 0.5f else 1f)
+            .alpha(if (selectedQuiz.value != null) 0.3f else 1f)
             .padding(horizontal = 20.dp)
             .padding(top = 38.dp)
             .padding(bottom = 24.dp),
