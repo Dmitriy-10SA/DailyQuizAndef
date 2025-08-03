@@ -21,6 +21,11 @@ import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.dialog.type.UiDialogType
 import com.andef.dailyquiz.core.design.text.button.ui.UiTextButton
 
+/**
+ * Диалог
+ *
+ * @see UiDialogType
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UiDialog(
