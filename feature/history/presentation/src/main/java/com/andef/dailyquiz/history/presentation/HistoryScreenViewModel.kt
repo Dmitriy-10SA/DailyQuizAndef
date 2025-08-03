@@ -14,6 +14,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel для экрана истории завершённых викторин.
+ *
+ * Обрабатывает интенты, управляет состоянием и взаимодействует с use-case'ами.
+ *
+ * @property deleteQuizUseCase Use-case для удаления викторины.
+ * @property getQuizzesUseCase Use-case для получения списка викторин.
+ */
 class HistoryScreenViewModel @Inject constructor(
     private val deleteQuizUseCase: DeleteQuizUseCase,
     private val getQuizzesUseCase: GetQuizzesUseCase
@@ -41,6 +49,13 @@ class HistoryScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Удаление викторины по ID.
+     *
+     * @param quizId ID викторины.
+     * @param onSuccess Колбэк при успешном удалении.
+     * @param onError Колбэк при ошибке, с ресурсом строки ошибки.
+     */
     private fun deleteQuiz(quizId: Long, onSuccess: () -> Unit, onError: (Int) -> Unit) {
         viewModelScope.launch {
             try {
@@ -55,6 +70,10 @@ class HistoryScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Подписка на поток викторин. Запускается один раз при инициализации,
+     * либо при ошибке повторно (по запросу).
+     */
     private var isFirstStart = true
     private var job: Job? = null
     private fun subscribeForQuizzes() {

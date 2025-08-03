@@ -62,7 +62,6 @@ fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValu
             painter = painterResource(R.drawable.logo),
             contentDescription = stringResource(R.string.daily_quiz_logo)
         )
-        //карточка с приветствием (добро пожаловать) и кнопкой начала викторины
         WelcomeCardWithStartButton(
             modifier = Modifier
                 .fillMaxWidth()
@@ -73,7 +72,9 @@ fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValu
     }
 }
 
-//карточка с приветствием (добро пожаловать) и кнопкой начала викторины
+/**
+ * Карточка с приветствием (добро пожаловать) и кнопкой начала викторины
+ */
 @Composable
 private fun WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> Unit) {
     UiCard(modifier = modifier) {
