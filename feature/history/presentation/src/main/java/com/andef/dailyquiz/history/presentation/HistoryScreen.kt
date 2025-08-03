@@ -36,6 +36,8 @@ import com.andef.dailyquiz.core.design.Black
 import com.andef.dailyquiz.core.design.White
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
+import com.andef.dailyquiz.core.design.dialog.type.UiDialogType
+import com.andef.dailyquiz.core.design.dialog.ui.UiDialog
 import com.andef.dailyquiz.core.design.icon.button.ui.UiIconButton
 import com.andef.dailyquiz.core.design.loading.ui.UiLoading
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
@@ -52,7 +54,7 @@ fun HistoryScreen(
 
     when {
         state.value.isLoading -> UiLoading()
-        state.value.quizzes.isEmpty() -> EmptyQuizzesContent(
+        state.value.quizzes.isEmpty() && !state.value.isError -> EmptyQuizzesContent(
             paddingValues = paddingValues,
             onButtonClick = navHostController::popBackStack,
             navHostController = navHostController
@@ -60,6 +62,16 @@ fun HistoryScreen(
 
         else -> MainContent(navHostController = navHostController, state = state)
     }
+    UiDialog(
+        type = UiDialogType.WithActionButton(
+            buttonText = stringResource(com.andef.dailyquiz.core.design.R.string.retry_error_button),
+            onClick = { viewModel.send(HistoryScreenIntent.SubscribeForQuizzes) }
+        ),
+        isVisible = state.value.isError,
+        title = stringResource(com.andef.dailyquiz.core.design.R.string.oops_error),
+        subTitle = stringResource(com.andef.dailyquiz.core.design.R.string.error_load_quiz),
+        onDismissRequest = navHostController::popBackStack
+    )
 }
 
 @Composable
