@@ -22,6 +22,11 @@ import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.White
 import com.andef.dailyquiz.core.design.button.type.UiButtonType
 
+/**
+ * Кнопка
+ *
+ * @see UiButtonType
+ */
 @Composable
 fun UiButton(
     onClick: () -> Unit,
