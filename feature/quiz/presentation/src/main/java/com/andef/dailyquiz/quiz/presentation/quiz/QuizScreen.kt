@@ -41,6 +41,12 @@ import com.andef.dailyquiz.core.domain.entites.QuizCategory
 import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
 import com.andef.dailyquiz.quiz.domain.entities.Question
 
+/**
+ * Основной UI-компонент для экрана прохождения викторины.
+ *
+ * Управляет отображением прогресса, обработкой ответов, переходом к следующему вопросу
+ * и завершением викторины. Инициализирует вопросы и таймер, отображает загрузку, диалоги ошибок.
+ */
 @Composable
 fun ColumnScope.QuizScreen(
     questions: List<Question>,
@@ -84,6 +90,13 @@ fun ColumnScope.QuizScreen(
     )
 }
 
+/**
+ * Эффект инициализации, запускаемый один раз при появлении экрана.
+ *
+ * Отправляет интент с инициализацией вопросов и таймера, регистрирует логику завершения викторины.
+ *
+ * В случае успешного завершения — сохраняет результат. В случае ошибки — отображает диалог.
+ */
 @Composable
 private fun InitEffect(
     viewModel: QuizScreenViewModel,
@@ -125,6 +138,13 @@ private fun InitEffect(
     }
 }
 
+/**
+ * Компонент, отображающий диалоги при различных ошибках во время прохождения викторины.
+ *
+ * Содержит:
+ * - диалог при истечении времени;
+ * - диалог при ошибке сохранения результата.
+ */
 @Composable
 private fun Dialogs(
     viewModel: QuizScreenViewModel,
@@ -160,6 +180,15 @@ private fun Dialogs(
     )
 }
 
+/**
+ * Основной контент викторины, включающий:
+ * - логотип;
+ * - карточку с вопросом;
+ * - варианты ответов;
+ * - кнопку "Далее".
+ *
+ * Показывается после завершения загрузки.
+ */
 @Composable
 private fun ColumnScope.MainContent(
     state: State<QuizScreenState>,
@@ -180,6 +209,15 @@ private fun ColumnScope.MainContent(
     }
 }
 
+/**
+ * Карточка текущего вопроса.
+ *
+ * Содержит:
+ * - таймер;
+ * - порядковый номер и сам вопрос;
+ * - список ответов с визуальной подсветкой;
+ * - кнопку перехода к следующему вопросу.
+ */
 @Composable
 private fun ColumnScope.QuestionCard(
     state: State<QuizScreenState>,
@@ -246,6 +284,12 @@ private fun ColumnScope.QuestionCard(
     }
 }
 
+/**
+ * Заголовок карточки вопроса, включающий:
+ * - номер текущего вопроса;
+ * - общее количество;
+ * - сам текст вопроса.
+ */
 @Composable
 private fun QuestionCardTitleAndSubtitle(
     currentQuestionIndex: Int,
@@ -276,6 +320,15 @@ private fun QuestionCardTitleAndSubtitle(
     )
 }
 
+/**
+ * Определяет тип визуальной подсветки ответа (правильный, неправильный, выбранный и т.д.)
+ * в зависимости от состояния викторины.
+ *
+ * @param state Состояние викторины.
+ * @param answer Вариант ответа, для которого определяется тип.
+ *
+ * @return Тип визуального отображения ответа.
+ */
 private fun getUiAnswerOptionType(
     state: State<QuizScreenState>,
     answer: String
