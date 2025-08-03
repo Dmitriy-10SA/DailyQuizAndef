@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -55,7 +56,7 @@ import java.util.Locale
  * категорию и сложность викторины. По долгому нажатию открывается меню действий.
  */
 @Composable
-fun HistoryItemCard(
+fun LazyItemScope.HistoryItemCard(
     modifier: Modifier = Modifier,
     quizId: Long,
     category: QuizCategory,
