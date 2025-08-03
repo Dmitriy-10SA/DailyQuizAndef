@@ -38,15 +38,15 @@ fun CollectScreen(
     AnimatedContent(
         targetState = state.value.step
     ) { step ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = paddingValues.calculateTopPadding())
-                .navigationBarsPadding(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            when (step) {
-                CollectScreenStep.Filter -> {
+        when (step) {
+            CollectScreenStep.Filter -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = paddingValues.calculateTopPadding())
+                        .navigationBarsPadding(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     FilterQuizScreen(
                         viewModelFactory = viewModelFactory,
                         onSuccessQuestionsLoad = { questions, shuffledAnswers, category, difficulty ->
@@ -71,8 +71,16 @@ fun CollectScreen(
                     )
                     BackHandler(onBack = navHostController::popBackStack)
                 }
+            }
 
-                is CollectScreenStep.Quiz -> {
+            is CollectScreenStep.Quiz -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = paddingValues.calculateTopPadding())
+                        .navigationBarsPadding(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     QuizScreen(
                         questions = step.questions,
                         shuffledAnswers = step.shuffledAnswers,
@@ -96,8 +104,13 @@ fun CollectScreen(
                     )
                     BackHandler {}
                 }
+            }
 
-                is CollectScreenStep.Result -> {
+            is CollectScreenStep.Result -> {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     ResultScreen(
                         correctAnsCnt = step.correctAnsCnt,
                         userAnswers = step.userAnswers,
