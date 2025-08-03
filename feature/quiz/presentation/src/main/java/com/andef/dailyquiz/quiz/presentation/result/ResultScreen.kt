@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -44,7 +45,7 @@ fun ResultScreen(
     onRetryClick: () -> Unit
 ) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        Spacer(modifier = Modifier.navigationBarsPadding())
+        Spacer(modifier = Modifier.statusBarsPadding())
         Spacer(modifier = Modifier.height(38.dp))
         Text(
             modifier = Modifier.fillMaxWidth(),
