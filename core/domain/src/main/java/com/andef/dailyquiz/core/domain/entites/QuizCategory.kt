@@ -1,5 +1,10 @@
 package com.andef.dailyquiz.core.domain.entites
 
+/**
+ * Категория викторины
+ *
+ * @property apiId идентификатор для отправки запроса к API (указываем категорию так)
+ */
 enum class QuizCategory(val apiId: Int) {
     GENERAL_KNOWLEDGE(apiId = 9),
     ENTERTAINMENT_BOOKS(apiId = 10),
