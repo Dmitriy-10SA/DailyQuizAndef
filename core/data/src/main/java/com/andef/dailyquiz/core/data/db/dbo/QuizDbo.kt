@@ -6,6 +6,19 @@ import androidx.room.PrimaryKey
 import com.andef.dailyquiz.core.domain.entites.QuizCategory
 import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
 
+/**
+ * Сущность викторина для БД
+ *
+ * @property id идентификатор (автоинкриментируемый)
+ * @property correctAnswersCnt кол-во правильных ответов пользователя в данной викторине
+ * @property date дата, в которую пользователь закончил викторину
+ * @property time время, в которое пользователь закончил викторину
+ * @property category категория викторины
+ * @property difficulty сложность викторины
+ *
+ * @see QuizCategory
+ * @see QuizDifficulty
+ */
 @Entity(tableName = "quiz")
 data class QuizDbo(
     @PrimaryKey(autoGenerate = true)
