@@ -20,6 +20,6 @@ data class QuizScreenState(
     val isLoading: Boolean = false
 ) {
     companion object {
-        const val TOTAL_TIME_SECONDS = 100
+        const val TOTAL_TIME_SECONDS = 25
     }
 }

@@ -112,8 +112,8 @@ class QuizScreenViewModel @Inject constructor(
     private fun nextClick(questionIndex: Int) {
         viewModelScope.launch {
             _state.value = _state.value.copy(showRightAnswer = true)
-            delay(2000)
             if (questionIndex < _state.value.questions.size - 1) {
+                delay(2000)
                 _state.value = _state.value.copy(
                     showRightAnswer = false,
                     currentQuestionIndex = questionIndex + 1
@@ -157,6 +157,7 @@ class QuizScreenViewModel @Inject constructor(
                 seconds++
             }
             if (_state.value.quizFinished) {
+                delay(2000)
                 onQuizFinished(true)
             } else {
                 onQuizFinished(false)
