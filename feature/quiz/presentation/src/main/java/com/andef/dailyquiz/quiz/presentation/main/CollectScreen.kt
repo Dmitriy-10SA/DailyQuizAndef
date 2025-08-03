@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.quiz.presentation.filter.FilterQuizScreen
 import com.andef.dailyquiz.quiz.presentation.quiz.QuizScreen
+import com.andef.dailyquiz.quiz.presentation.result.ResultScreen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -81,7 +82,8 @@ fun CollectScreen(
                                     step = CollectScreenStep.Result(
                                         correctAnsCnt = correctAnsCnt,
                                         userAnswers = userAnswers,
-                                        questions = questions
+                                        questions = questions,
+                                        shuffledAnswers = step.shuffledAnswers
                                     )
                                 )
                             )
@@ -92,7 +94,13 @@ fun CollectScreen(
                 }
 
                 is CollectScreenStep.Result -> {
-
+                    ResultScreen(
+                        correctAnsCnt = step.correctAnsCnt,
+                        userAnswers = step.userAnswers,
+                        shuffledAnswers = step.shuffledAnswers,
+                        questions = step.questions,
+                        onRetryClick = navHostController::popBackStack
+                    )
                 }
             }
         }

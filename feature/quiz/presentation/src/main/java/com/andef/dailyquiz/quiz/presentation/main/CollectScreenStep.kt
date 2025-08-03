@@ -16,6 +16,7 @@ sealed class CollectScreenStep {
     data class Result(
         val correctAnsCnt: Int,
         val userAnswers: Map<Int, String>,
-        val questions: List<Question>
+        val questions: List<Question>,
+        val shuffledAnswers: List<List<String>>
     ) : CollectScreenStep()
 }
