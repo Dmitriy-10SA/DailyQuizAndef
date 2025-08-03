@@ -63,6 +63,9 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    //Splash Screen
+    implementation(libs.androidx.core.splashscreen)
+
     //System Ui Controller
     implementation(libs.accompanist.systemuicontroller)
 

@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.DailyQuizAndefSplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/indigo_blue</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">600</item>
+        <item name="postSplashScreenTheme">@style/Theme.DailyQuizAndef</item>
+    </style>
 
     <style name="Theme.DailyQuizAndef" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>
