@@ -1,6 +1,8 @@
 # 📚 DaylyQuiz
 
----
+<a href="https://disk.yandex.ru/d/PpkpXIi8sL4kgQ">
+    <strong>Download APK (скачать APK)</strong>
+  </a>
 
 ## 🚀 Функции
 
