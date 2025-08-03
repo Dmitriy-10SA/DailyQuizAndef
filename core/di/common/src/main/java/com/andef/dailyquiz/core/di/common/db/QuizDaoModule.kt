@@ -5,7 +5,14 @@ import com.andef.dailyquiz.core.data.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
+import com.andef.dailyquiz.core.data.db.dao.QuizDao
 
+/**
+ * DI для DAO по работе в викторинами
+ *
+ * @see QuizDao
+ * @see AppDatabase
+ */
 @Module
 class QuizDaoModule {
     @Provides

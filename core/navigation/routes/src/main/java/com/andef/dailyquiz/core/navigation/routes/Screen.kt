@@ -1,5 +1,13 @@
 package com.andef.dailyquiz.core.navigation.routes
 
+/**
+ * Route (маршруты) для экранов графа навигации приложения
+ *
+ * Имеет маршруты:
+ * - Start (стартовый экран)
+ * - Quiz (экран, в котором происходит выбор фильтров для викторины, далее викторина и результат прохождения)
+ * - History (экран со всеми пройдеными викторинами)
+ */
 sealed class Screen(val route: String) {
     data object Start : Screen(START_SCREEN_ROUTE)
     data object History : Screen(HISTORY_SCREEN_ROUTE)

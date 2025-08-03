@@ -13,6 +13,11 @@ import androidx.compose.ui.unit.dp
 import com.andef.dailyquiz.core.design.SoftLilac
 import com.andef.dailyquiz.core.design.White
 
+/**
+ * Индикатор загрузки на весь экран.
+ *
+ * Центрирует [CircularProgressIndicator] с отступами от статус-бара и навигации.
+ */
 @Composable
 fun UiLoading() {
     Box(

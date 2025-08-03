@@ -4,6 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
 
+/**
+ * Получение сложности викторины в строковом виде
+ *
+ * @see QuizDifficulty
+ */
 @Composable
 fun getQuizDifficultyAsString(difficulty: QuizDifficulty) = when (difficulty) {
     QuizDifficulty.EASY -> stringResource(com.andef.dailyquiz.core.design.R.string.difficulty_easy)
