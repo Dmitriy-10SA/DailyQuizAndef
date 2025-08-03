@@ -12,6 +12,16 @@ import com.andef.dailyquiz.history.presentation.HistoryScreen
 import com.andef.dailyquiz.quiz.presentation.main.CollectScreen
 import com.andef.dailyquiz.start.presentation.StartScreen
 
+/**
+ * Граф навигации для приложения
+ *
+ * Имеет экраны:
+ * - StartScreen (стартовый экран)
+ * - CollectScreen (экран, в котором происходит выбор фильтров для викторины, далее викторина и результат прохождения)
+ * - HistoryScreen (экран со всеми пройдеными викторинами)
+ *
+ * @see Screen
+ */
 @Composable
 fun AppNavGraph(
     navHostController: NavHostController,
