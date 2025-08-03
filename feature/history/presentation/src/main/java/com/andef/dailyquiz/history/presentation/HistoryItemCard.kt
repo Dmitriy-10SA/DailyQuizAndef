@@ -50,13 +50,21 @@ fun HistoryItemCard(
     correctAnsCnt: Int,
     date: LocalDate,
     time: LocalTime,
+    onLongClick: () -> Unit,
+    onDismiss: () -> Unit,
     onDeleteClick: () -> Unit
 ) {
     var menuExpanded by remember { mutableStateOf(false) }
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(40.dp))
-            .combinedClickable(onClick = {}, onLongClick = { menuExpanded = true })
+            .combinedClickable(
+                onClick = {},
+                onLongClick = {
+                    menuExpanded = true
+                    onLongClick()
+                }
+            )
     ) {
         UiCard {
             Column(
@@ -110,7 +118,10 @@ fun HistoryItemCard(
                 shape = RoundedCornerShape(12.dp),
                 containerColor = White,
                 expanded = menuExpanded,
-                onDismissRequest = { menuExpanded = false }
+                onDismissRequest = {
+                    menuExpanded = false
+                    onDismiss()
+                }
             ) {
                 DropdownMenuItem(
                     contentPadding = PaddingValues(12.dp),
@@ -135,6 +146,7 @@ fun HistoryItemCard(
                     },
                     onClick = {
                         menuExpanded = false
+                        onDismiss()
                         onDeleteClick()
                     }
                 )

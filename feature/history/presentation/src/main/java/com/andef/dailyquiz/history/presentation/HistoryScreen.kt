@@ -1,6 +1,7 @@
 package com.andef.dailyquiz.history.presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,10 +18,14 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -33,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.andef.dailyquiz.core.design.Black
+import com.andef.dailyquiz.core.design.IndigoBlue
 import com.andef.dailyquiz.core.design.White
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
@@ -41,6 +47,7 @@ import com.andef.dailyquiz.core.design.dialog.ui.UiDialog
 import com.andef.dailyquiz.core.design.icon.button.ui.UiIconButton
 import com.andef.dailyquiz.core.design.loading.ui.UiLoading
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
+import com.andef.dailyquiz.core.domain.entites.Quiz
 
 @Composable
 fun HistoryScreen(
@@ -52,15 +59,22 @@ fun HistoryScreen(
     val viewModel: HistoryScreenViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
 
+    val selectedQuiz = remember { mutableStateOf<Quiz?>(null) }
+
     when {
         state.value.isLoading -> UiLoading()
         state.value.quizzes.isEmpty() && !state.value.isError -> EmptyQuizzesContent(
             paddingValues = paddingValues,
             onButtonClick = navHostController::popBackStack,
-            navHostController = navHostController
+            navHostController = navHostController,
+            selectedQuiz = selectedQuiz
         )
 
-        else -> MainContent(navHostController = navHostController, state = state)
+        else -> MainContent(
+            navHostController = navHostController,
+            selectedQuiz = selectedQuiz,
+            state = state
+        )
     }
     UiDialog(
         type = UiDialogType.WithActionButton(
@@ -75,20 +89,31 @@ fun HistoryScreen(
 }
 
 @Composable
-private fun MainContent(navHostController: NavHostController, state: State<HistoryScreenState>) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+private fun MainContent(
+    navHostController: NavHostController,
+    state: State<HistoryScreenState>,
+    selectedQuiz: MutableState<Quiz?>
+) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(if (selectedQuiz.value != null) IndigoBlue.copy(alpha = 0.5f) else IndigoBlue)
+    ) {
         item { Spacer(modifier = Modifier.statusBarsPadding()) }
-        item { Header(navHostController = navHostController) }
+        item { Header(navHostController = navHostController, selectedQuiz = selectedQuiz) }
         items(items = state.value.quizzes, key = { it.id }) { quiz ->
             Spacer(modifier = Modifier.padding(16.dp))
             HistoryItemCard(
                 quizId = quiz.id,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp),
+                    .padding(horizontal = 20.dp)
+                    .alpha(if (selectedQuiz.value != null && selectedQuiz.value != quiz) 0.5f else 1f),
                 correctAnsCnt = quiz.correctAnswersCnt,
                 date = quiz.date,
                 time = quiz.time,
+                onDismiss = { selectedQuiz.value = null },
+                onLongClick = { selectedQuiz.value = quiz },
                 onDeleteClick = {
                     TODO()
                 }
@@ -100,10 +125,11 @@ private fun MainContent(navHostController: NavHostController, state: State<Histo
 }
 
 @Composable
-private fun Header(navHostController: NavHostController) {
+private fun Header(navHostController: NavHostController, selectedQuiz: MutableState<Quiz?>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .alpha(if (selectedQuiz.value != null) 0.5f else 1f)
             .padding(horizontal = 20.dp)
             .padding(top = 38.dp)
             .padding(bottom = 24.dp),
@@ -135,7 +161,8 @@ private fun Header(navHostController: NavHostController) {
 private fun EmptyQuizzesContent(
     navHostController: NavHostController,
     paddingValues: PaddingValues,
-    onButtonClick: () -> Unit
+    onButtonClick: () -> Unit,
+    selectedQuiz: MutableState<Quiz?>
 ) {
     Column(
         modifier = Modifier
@@ -143,7 +170,7 @@ private fun EmptyQuizzesContent(
             .padding(top = paddingValues.calculateTopPadding())
             .navigationBarsPadding()
     ) {
-        Header(navHostController = navHostController)
+        Header(navHostController = navHostController, selectedQuiz = selectedQuiz)
         UiCard(
             modifier = Modifier
                 .fillMaxWidth()
