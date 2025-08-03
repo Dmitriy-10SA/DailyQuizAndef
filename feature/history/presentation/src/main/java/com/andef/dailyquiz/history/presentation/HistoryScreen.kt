@@ -88,7 +88,10 @@ private fun MainContent(navHostController: NavHostController, state: State<Histo
                     .padding(horizontal = 20.dp),
                 correctAnsCnt = quiz.correctAnswersCnt,
                 date = quiz.date,
-                time = quiz.time
+                time = quiz.time,
+                onDeleteClick = {
+                    TODO()
+                }
             )
         }
         item { Spacer(modifier = Modifier.padding(16.dp)) }
