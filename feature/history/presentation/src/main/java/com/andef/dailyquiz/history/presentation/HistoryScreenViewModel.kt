@@ -34,6 +34,10 @@ class HistoryScreenViewModel @Inject constructor(
             HistoryScreenIntent.SubscribeForQuizzes -> {
                 subscribeForQuizzes()
             }
+
+            is HistoryScreenIntent.ChangeSuccessDeleteDialogVisible -> {
+                _state.value = _state.value.copy(successDeleteDialog = intent.isVisible)
+            }
         }
     }
 

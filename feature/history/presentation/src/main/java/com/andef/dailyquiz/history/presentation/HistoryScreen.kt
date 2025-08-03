@@ -1,5 +1,6 @@
 package com.andef.dailyquiz.history.presentation
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,10 +24,12 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -48,6 +51,8 @@ import com.andef.dailyquiz.core.design.icon.button.ui.UiIconButton
 import com.andef.dailyquiz.core.design.loading.ui.UiLoading
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
 import com.andef.dailyquiz.core.domain.entites.Quiz
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun HistoryScreen(
@@ -60,6 +65,8 @@ fun HistoryScreen(
     val state = viewModel.state.collectAsState()
 
     val selectedQuiz = remember { mutableStateOf<Quiz?>(null) }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
 
     when {
         state.value.isLoading -> UiLoading()
@@ -73,7 +80,11 @@ fun HistoryScreen(
         else -> MainContent(
             navHostController = navHostController,
             selectedQuiz = selectedQuiz,
-            state = state
+            state = state,
+            viewModel = viewModel,
+            scope = scope,
+            context = context,
+            snackbarHostState = snackbarHostState
         )
     }
     UiDialog(
@@ -86,13 +97,26 @@ fun HistoryScreen(
         subTitle = stringResource(com.andef.dailyquiz.core.design.R.string.error_load_quiz),
         onDismissRequest = navHostController::popBackStack
     )
+    UiDialog(
+        type = UiDialogType.WithDismissButton,
+        isVisible = state.value.successDeleteDialog,
+        title = stringResource(com.andef.dailyquiz.core.design.R.string.delete_attempt),
+        subTitle = stringResource(com.andef.dailyquiz.core.design.R.string.delete_attempt_description),
+        onDismissRequest = {
+            viewModel.send(HistoryScreenIntent.ChangeSuccessDeleteDialogVisible(false))
+        }
+    )
 }
 
 @Composable
 private fun MainContent(
     navHostController: NavHostController,
     state: State<HistoryScreenState>,
-    selectedQuiz: MutableState<Quiz?>
+    selectedQuiz: MutableState<Quiz?>,
+    viewModel: HistoryScreenViewModel,
+    scope: CoroutineScope,
+    snackbarHostState: SnackbarHostState,
+    context: Context
 ) {
     LazyColumn(
         modifier = Modifier
@@ -115,7 +139,22 @@ private fun MainContent(
                 onDismiss = { selectedQuiz.value = null },
                 onLongClick = { selectedQuiz.value = quiz },
                 onDeleteClick = {
-                    TODO()
+                    viewModel.send(
+                        HistoryScreenIntent.DeleteQuiz(
+                            id = quiz.id,
+                            onSuccess = {
+                                viewModel.send(
+                                    HistoryScreenIntent.ChangeSuccessDeleteDialogVisible(true)
+                                )
+                            },
+                            onError = { msgResId ->
+                                scope.launch {
+                                    snackbarHostState.currentSnackbarData?.dismiss()
+                                    snackbarHostState.showSnackbar(context.getString(msgResId))
+                                }
+                            }
+                        )
+                    )
                 }
             )
         }

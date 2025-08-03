@@ -7,4 +7,6 @@ sealed class HistoryScreenIntent {
         val onSuccess: () -> Unit,
         val onError: (Int) -> Unit
     ) : HistoryScreenIntent()
+
+    data class ChangeSuccessDeleteDialogVisible(val isVisible: Boolean) : HistoryScreenIntent()
 }
