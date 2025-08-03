@@ -5,6 +5,13 @@ import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
 import com.andef.dailyquiz.quiz.domain.repository.QuestionRepository
 import javax.inject.Inject
 
+/**
+ * UseCase для загрузки вопросов из внешнего источника.
+ *
+ * Делегирует загрузку [QuestionRepository].
+ *
+ * @property repository Репозиторий, предоставляющий данные вопросов.
+ */
 class LoadQuestionsUseCase @Inject constructor(private val repository: QuestionRepository) {
     suspend operator fun invoke(
         amount: Int = 5,
