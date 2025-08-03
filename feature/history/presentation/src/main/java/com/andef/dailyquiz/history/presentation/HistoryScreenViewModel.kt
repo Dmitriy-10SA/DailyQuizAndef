@@ -2,6 +2,7 @@ package com.andef.dailyquiz.history.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andef.dailyquiz.core.design.R
 import com.andef.dayliquiz.history.domain.DeleteQuizUseCase
 import com.andef.dayliquiz.history.domain.GetQuizzesUseCase
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel для экрана истории завершённых викторин.
+ *
+ * Обрабатывает интенты, управляет состоянием и взаимодействует с use-case'ами.
+ *
+ * @property deleteQuizUseCase Use-case для удаления викторины.
+ * @property getQuizzesUseCase Use-case для получения списка викторин.
+ */
 class HistoryScreenViewModel @Inject constructor(
     private val deleteQuizUseCase: DeleteQuizUseCase,
     private val getQuizzesUseCase: GetQuizzesUseCase
@@ -41,6 +50,13 @@ class HistoryScreenViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Удаление викторины по ID.
+     *
+     * @param quizId ID викторины.
+     * @param onSuccess Колбэк при успешном удалении.
+     * @param onError Колбэк при ошибке, с ресурсом строки ошибки.
+     */
     private fun deleteQuiz(quizId: Long, onSuccess: () -> Unit, onError: (Int) -> Unit) {
         viewModelScope.launch {
             try {
@@ -48,13 +64,17 @@ class HistoryScreenViewModel @Inject constructor(
                 withContext(Dispatchers.IO) { deleteQuizUseCase.invoke(quizId) }
                 onSuccess()
             } catch (_: Exception) {
-                onError(com.andef.dailyquiz.core.design.R.string.error_toast_msg)
+                onError(R.string.error_toast_msg)
             } finally {
                 _state.value = _state.value.copy(isLoading = false)
             }
         }
     }
 
+    /**
+     * Подписка на поток викторин. Запускается один раз при инициализации,
+     * либо при ошибке повторно (по запросу).
+     */
     private var isFirstStart = true
     private var job: Job? = null
     private fun subscribeForQuizzes() {

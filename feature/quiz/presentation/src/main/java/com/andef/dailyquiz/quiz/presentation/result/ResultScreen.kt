@@ -3,6 +3,7 @@ package com.andef.dailyquiz.quiz.presentation.result
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,8 +37,14 @@ import com.andef.dailyquiz.core.design.card.ui.UiCard
 import com.andef.dailyquiz.core.design.rating.ui.UiRating
 import com.andef.dailyquiz.quiz.domain.entities.Question
 
+/**
+ * Экран отображения результатов викторины.
+ *
+ * Показывает количество правильных ответов, карточку с рейтингом и
+ * список всех вопросов с пользовательскими ответами.
+ */
 @Composable
-fun ResultScreen(
+fun ColumnScope.ResultScreen(
     correctAnsCnt: Int,
     userAnswers: Map<Int, String>,
     questions: List<Question>,
@@ -93,8 +101,14 @@ fun ResultScreen(
     }
 }
 
+/**
+ * Карточка с описанием конкретного вопроса и ответами пользователя.
+ *
+ * Показывает текст вопроса, список вариантов ответов с цветовой индикацией
+ * (правильный, неправильный, не выбранный), а также номер текущего вопроса.
+ */
 @Composable
-private fun QuestionDescriptionCard(
+private fun LazyItemScope.QuestionDescriptionCard(
     index: Int,
     question: Question,
     questions: List<Question>,
@@ -161,8 +175,18 @@ private fun QuestionDescriptionCard(
     }
 }
 
+/**
+ * Верхняя карточка с итогами квиза.
+ *
+ * Содержит количество правильных ответов, визуальный рейтинг,
+ * общее описание результатов и кнопку "Повторить".
+ */
 @Composable
-private fun ResultTopCard(correctAnsCnt: Int, questions: List<Question>, onRetryClick: () -> Unit) {
+private fun LazyItemScope.ResultTopCard(
+    correctAnsCnt: Int,
+    questions: List<Question>,
+    onRetryClick: () -> Unit
+) {
     UiCard(
         modifier = Modifier
             .fillMaxWidth()

@@ -40,6 +40,9 @@ import com.andef.dailyquiz.core.utils.getQuizCategoryAsString
 import com.andef.dailyquiz.core.utils.getQuizDifficultyAsString
 import com.andef.dailyquiz.quiz.domain.entities.Question
 
+/**
+ * Экран выбора параметров квиза: категории и сложности.
+ */
 @Composable
 fun ColumnScope.FilterQuizScreen(
     viewModelFactory: ViewModelFactory,
@@ -82,6 +85,14 @@ fun ColumnScope.FilterQuizScreen(
     }
 }
 
+/**
+ * Основное содержимое экрана фильтрации квиза.
+ *
+ * Включает в себя:
+ * - верхнюю панель с логотипом и кнопкой "назад"
+ * - карточку с выпадающими меню для фильтрации
+ * - кнопку "Далее" для перехода к квизу
+ */
 @Composable
 private fun ColumnScope.MainContent(
     state: State<FilterQuizState>,
@@ -148,6 +159,11 @@ private fun ColumnScope.MainContent(
     }
 }
 
+/**
+ * Компоненты фильтрации: выпадающие списки для категории и сложности.
+ *
+ * Вызываются внутри карточки на экране выбора фильтров.
+ */
 @Composable
 private fun ColumnScope.FilterMenus(
     state: State<FilterQuizState>,
@@ -190,6 +206,13 @@ private fun ColumnScope.FilterMenus(
     }
 }
 
+/**
+ * Заголовок и подзаголовок карточки на экране фильтрации.
+ *
+ * Отображается над фильтрами с текстом:
+ * - "Почти готово"
+ * - "Осталось выбрать сложность и категорию"
+ */
 @Composable
 private fun ColumnScope.TitleAndSubtitleForUiCard() {
     Column(

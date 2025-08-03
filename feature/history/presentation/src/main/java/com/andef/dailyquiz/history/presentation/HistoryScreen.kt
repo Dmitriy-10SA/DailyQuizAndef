@@ -42,6 +42,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.andef.dailyquiz.core.design.Black
 import com.andef.dailyquiz.core.design.IndigoBlue
+import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.White
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
@@ -54,6 +55,10 @@ import com.andef.dailyquiz.core.domain.entites.Quiz
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+/**
+ * Основной экран истории прохождения викторин.
+ * Отображает список пройденных викторин или состояние загрузки/ошибки/пустоты.
+ */
 @Composable
 fun HistoryScreen(
     navHostController: NavHostController,
@@ -87,27 +92,43 @@ fun HistoryScreen(
             snackbarHostState = snackbarHostState
         )
     }
+    Dialogs(viewModel = viewModel, state = state, navHostController = navHostController)
+}
+
+/**
+ * Диалоги ошибки и успешного удаления
+ */
+@Composable
+private fun Dialogs(
+    viewModel: HistoryScreenViewModel,
+    state: State<HistoryScreenState>,
+    navHostController: NavHostController
+) {
     UiDialog(
         type = UiDialogType.WithActionButton(
-            buttonText = stringResource(com.andef.dailyquiz.core.design.R.string.retry_error_button),
+            buttonText = stringResource(R.string.retry_error_button),
             onClick = { viewModel.send(HistoryScreenIntent.SubscribeForQuizzes) }
         ),
         isVisible = state.value.isError,
-        title = stringResource(com.andef.dailyquiz.core.design.R.string.oops_error),
-        subTitle = stringResource(com.andef.dailyquiz.core.design.R.string.error_load_quiz),
+        title = stringResource(R.string.oops_error),
+        subTitle = stringResource(R.string.error_load_quiz),
         onDismissRequest = navHostController::popBackStack
     )
     UiDialog(
         type = UiDialogType.WithDismissButton,
         isVisible = state.value.successDeleteDialog,
-        title = stringResource(com.andef.dailyquiz.core.design.R.string.delete_attempt),
-        subTitle = stringResource(com.andef.dailyquiz.core.design.R.string.delete_attempt_description),
+        title = stringResource(R.string.delete_attempt),
+        subTitle = stringResource(R.string.delete_attempt_description),
         onDismissRequest = {
             viewModel.send(HistoryScreenIntent.ChangeSuccessDeleteDialogVisible(false))
         }
     )
 }
 
+/**
+ * Основное содержимое экрана с историей викторин.
+ * Отображает список карточек с результатами, управляет визуальным фоном и выбором викторины.
+ */
 @Composable
 private fun MainContent(
     navHostController: NavHostController,
@@ -165,6 +186,9 @@ private fun MainContent(
     }
 }
 
+/**
+ * Заголовок экрана истории.
+ */
 @Composable
 private fun Header(navHostController: NavHostController, selectedQuiz: MutableState<Quiz?>) {
     Row(
@@ -178,18 +202,18 @@ private fun Header(navHostController: NavHostController, selectedQuiz: MutableSt
     ) {
         UiIconButton(
             modifier = Modifier.size(36.dp),
-            icon = painterResource(com.andef.dailyquiz.core.design.R.drawable.arrow_back),
-            contentDescription = stringResource(com.andef.dailyquiz.core.design.R.string.back),
+            icon = painterResource(R.drawable.arrow_back),
+            contentDescription = stringResource(R.string.back),
             onClick = navHostController::popBackStack
         )
         Text(
             modifier = Modifier
                 .weight(1f)
                 .padding(end = 36.dp),
-            text = stringResource(com.andef.dailyquiz.core.design.R.string.history),
+            text = stringResource(R.string.history),
             fontWeight = FontWeight.W900,
             color = White,
-            fontFamily = FontFamily(Font(com.andef.dailyquiz.core.design.R.font.inter)),
+            fontFamily = FontFamily(Font(R.font.inter)),
             letterSpacing = 0.sp,
             lineHeight = 32.sp,
             fontSize = 32.sp,
@@ -198,6 +222,10 @@ private fun Header(navHostController: NavHostController, selectedQuiz: MutableSt
     }
 }
 
+/**
+ * Отображает UI, когда список викторин пуст.
+ * Включает заголовок, карточку с текстом и кнопку, а также логотип.
+ */
 @Composable
 private fun EmptyQuizzesContent(
     navHostController: NavHostController,
@@ -225,10 +253,10 @@ private fun EmptyQuizzesContent(
             ) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(com.andef.dailyquiz.core.design.R.string.empty_history_card_text),
+                    text = stringResource(R.string.empty_history_card_text),
                     fontWeight = FontWeight.W400,
                     color = Black,
-                    fontFamily = FontFamily(Font(com.andef.dailyquiz.core.design.R.font.inter)),
+                    fontFamily = FontFamily(Font(R.font.inter)),
                     letterSpacing = 0.sp,
                     lineHeight = 20.sp,
                     fontSize = 20.sp,
@@ -237,7 +265,7 @@ private fun EmptyQuizzesContent(
                 UiButton(
                     onClick = onButtonClick,
                     modifier = Modifier.fillMaxWidth(),
-                    text = stringResource(com.andef.dailyquiz.core.design.R.string.start_quiz)
+                    text = stringResource(R.string.start_quiz)
                 )
             }
         }
@@ -248,8 +276,8 @@ private fun EmptyQuizzesContent(
                 .padding(bottom = 65.dp)
                 .padding(horizontal = 90.dp),
             contentScale = ContentScale.FillWidth,
-            painter = painterResource(com.andef.dailyquiz.core.design.R.drawable.logo),
-            contentDescription = stringResource(com.andef.dailyquiz.core.design.R.string.daily_quiz_logo)
+            painter = painterResource(R.drawable.logo),
+            contentDescription = stringResource(R.string.daily_quiz_logo)
         )
     }
 }

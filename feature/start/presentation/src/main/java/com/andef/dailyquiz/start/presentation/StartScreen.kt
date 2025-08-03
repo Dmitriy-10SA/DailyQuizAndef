@@ -2,6 +2,7 @@ package com.andef.dailyquiz.start.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,18 +21,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.andef.dailyquiz.core.design.Black
-import com.andef.dailyquiz.core.design.DailyQuizTheme
+import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.button.type.UiButtonType
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
 import com.andef.dailyquiz.core.navigation.routes.Screen
 
+/**
+ * Стартовый экран приложения
+ */
 @Composable
 fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValues) {
     Column(
@@ -42,23 +43,25 @@ fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValu
             .navigationBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //кнопка для перехода на экран истории, где показ пройденных викторин
         UiButton(
             modifier = Modifier.padding(top = 52.dp),
-            text = stringResource(com.andef.dailyquiz.core.design.R.string.history),
+            text = stringResource(R.string.history),
             type = UiButtonType.WithIcon(
-                icon = painterResource(com.andef.dailyquiz.core.design.R.drawable.history),
-                contentDescription = stringResource(com.andef.dailyquiz.core.design.R.string.history_icon)
+                icon = painterResource(R.drawable.history),
+                contentDescription = stringResource(R.string.history_icon)
             ),
             onClick = { navHostController.navigate(Screen.History.route) }
         )
+        //лого приложения
         Image(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 116.dp)
                 .padding(horizontal = 40.dp),
             contentScale = ContentScale.FillWidth,
-            painter = painterResource(com.andef.dailyquiz.core.design.R.drawable.logo),
-            contentDescription = stringResource(com.andef.dailyquiz.core.design.R.string.daily_quiz_logo)
+            painter = painterResource(R.drawable.logo),
+            contentDescription = stringResource(R.string.daily_quiz_logo)
         )
         WelcomeCardWithStartButton(
             modifier = Modifier
@@ -70,8 +73,11 @@ fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValu
     }
 }
 
+/**
+ * Карточка с приветствием (добро пожаловать) и кнопкой начала викторины
+ */
 @Composable
-private fun WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> Unit) {
+private fun ColumnScope.WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> Unit) {
     UiCard(modifier = modifier) {
         Column(
             modifier = Modifier
@@ -82,7 +88,7 @@ private fun WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> U
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(com.andef.dailyquiz.core.design.R.string.welcome_to_daily_quiz),
+                text = stringResource(R.string.welcome_to_daily_quiz),
                 fontSize = 28.sp,
                 fontWeight = FontWeight.W700,
                 letterSpacing = 0.sp,
@@ -93,20 +99,10 @@ private fun WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> U
             Spacer(modifier = Modifier.height(40.dp))
             UiButton(
                 modifier = Modifier.fillMaxWidth(),
-                text = stringResource(com.andef.dailyquiz.core.design.R.string.start_quiz),
+                text = stringResource(R.string.start_quiz),
                 onClick = onStartClick
             )
             Spacer(modifier = Modifier.height(24.dp))
-        }
-    }
-}
-
-@Preview
-@Composable
-private fun StartScreenPreview() {
-    DailyQuizTheme {
-        Scaffold {
-            StartScreen(navHostController = rememberNavController(), paddingValues = it)
         }
     }
 }
