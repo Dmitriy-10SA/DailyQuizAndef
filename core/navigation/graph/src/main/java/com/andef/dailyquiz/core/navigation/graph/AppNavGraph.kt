@@ -38,7 +38,8 @@ fun AppNavGraph(
             HistoryScreen(
                 navHostController = navHostController,
                 viewModelFactory = viewModelFactory,
-                paddingValues = paddingValues
+                paddingValues = paddingValues,
+                snackbarHostState = snackbarHostState
             )
         }
     }

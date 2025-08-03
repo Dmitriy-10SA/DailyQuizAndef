@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import com.andef.dailyquiz.core.di.common.db.QuizDaoModule
 import com.andef.dailyquiz.core.di.common.db.QuizRepositoryModule
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
+import com.andef.dailyquiz.history.di.HistoryViewModelModule
 import com.andef.dailyquiz.quiz.di.QuestionApiServiceModule
 import com.andef.dailyquiz.quiz.di.QuestionRepositoryModule
 import com.andef.dailyquiz.quiz.di.QuizViewModelModule
@@ -21,7 +22,11 @@ import javax.inject.Singleton
         //feature:quiz
         QuizViewModelModule::class,
         QuestionRepositoryModule::class,
-        QuestionApiServiceModule::class
+        QuestionApiServiceModule::class,
+
+
+        //feature:history
+        HistoryViewModelModule::class
     ]
 )
 @Singleton

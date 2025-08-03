@@ -9,7 +9,10 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuizDao {
-    @Query("SELECT * FROM quiz")
+    @Query("""
+    SELECT * FROM quiz
+    ORDER BY finished_date DESC, finished_time DESC
+    """)
     fun getQuizzes(): Flow<List<QuizDbo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

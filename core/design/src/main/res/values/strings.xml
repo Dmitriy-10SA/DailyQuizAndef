@@ -11,6 +11,8 @@
     <string name="category">Категория</string>
     <string name="difficulty">Сложность</string>
     <string name="history">История</string>
+    <string name="quiz_title_for_history_card">Quiz</string>
+    <string name="empty_history_card_text">Вы еще не проходили ни одной викторины</string>
     <string name="welcome_to_daily_quiz">Добро пожаловать в DailyQuiz!</string>
     <string name="almost_ready">Почти готовы!</string>
     <string name="retry">НАЧАТЬ ЗАНОВО</string>
