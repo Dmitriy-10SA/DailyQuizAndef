@@ -51,6 +51,44 @@ fun ColumnScope.QuizScreen(
     val viewModel: QuizScreenViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
 
+    InitEffect(
+        viewModel = viewModel,
+        questions = questions,
+        shuffledAnswers = shuffledAnswers,
+        category = category,
+        difficulty = difficulty,
+        onSuccessFinished = onSuccessFinished
+    )
+
+    when (state.value.isLoading) {
+        true -> UiLoading()
+        false -> {
+            MainContent(
+                state = state,
+                onAnswerClick = { answer ->
+                    viewModel.send(QuizScreenIntent.AnswerChoose(answer))
+                },
+                onNextClick = { viewModel.send(QuizScreenIntent.NextClick) }
+            )
+        }
+    }
+    Dialogs(
+        viewModel = viewModel,
+        state = state,
+        onFailureAddQuiz = onFailureAddQuiz,
+        onFailureFinished = onFailureFinished
+    )
+}
+
+@Composable
+private fun InitEffect(
+    viewModel: QuizScreenViewModel,
+    questions: List<Question>,
+    shuffledAnswers: List<List<String>>,
+    category: QuizCategory,
+    difficulty: QuizDifficulty,
+    onSuccessFinished: (Int, Map<Int, String>, List<Question>) -> Unit
+) {
     LaunchedEffect(Unit) {
         viewModel.send(
             QuizScreenIntent.InitQuestionsAndTimer(
@@ -74,26 +112,38 @@ fun ColumnScope.QuizScreen(
                         }
 
                         false -> {
-                            onFailureFinished()
+                            viewModel.send(QuizScreenIntent.ChangeTimeOverDialogVisible(true))
                         }
                     }
                 }
             )
         )
     }
+}
 
-    when (state.value.isLoading) {
-        true -> UiLoading()
-        false -> {
-            MainContent(
-                state = state,
-                onAnswerClick = { answer ->
-                    viewModel.send(QuizScreenIntent.AnswerChoose(answer))
-                },
-                onNextClick = { viewModel.send(QuizScreenIntent.NextClick) }
-            )
-        }
-    }
+@Composable
+private fun Dialogs(
+    viewModel: QuizScreenViewModel,
+    state: State<QuizScreenState>,
+    onFailureFinished: () -> Unit,
+    onFailureAddQuiz: () -> Unit
+) {
+    UiDialog(
+        type = UiDialogType.WithActionButton(
+            buttonText = stringResource(R.string.retry),
+            onClick = {
+                viewModel.send(QuizScreenIntent.ChangeTimeOverDialogVisible(false))
+                onFailureFinished()
+            }
+        ),
+        onDismissRequest = {
+            viewModel.send(QuizScreenIntent.ChangeTimeOverDialogVisible(false))
+            onFailureFinished()
+        },
+        isVisible = state.value.timeOverDialogVisible,
+        title = stringResource(R.string.time_over),
+        subTitle = stringResource(R.string.time_over_description),
+    )
     UiDialog(
         type = UiDialogType.WithDismissButton,
         isVisible = state.value.errorDialogVisible,

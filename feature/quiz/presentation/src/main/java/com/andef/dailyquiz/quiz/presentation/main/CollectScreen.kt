@@ -87,9 +87,7 @@ fun CollectScreen(
                             )
                         },
                         onFailureAddQuiz = navHostController::popBackStack,
-                        onFailureFinished = {
-                            TODO("Сообщение время вышло!")
-                        }
+                        onFailureFinished = navHostController::popBackStack
                     )
                 }
 

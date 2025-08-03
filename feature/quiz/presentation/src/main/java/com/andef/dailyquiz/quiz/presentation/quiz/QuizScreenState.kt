@@ -16,9 +16,10 @@ data class QuizScreenState(
     val quizFinished: Boolean = false,
     val nextButtonEnabled: Boolean = false,
     val errorDialogVisible: Boolean = false,
+    val timeOverDialogVisible: Boolean = false,
     val isLoading: Boolean = false
 ) {
     companion object {
-        const val TOTAL_TIME_SECONDS = 10
+        const val TOTAL_TIME_SECONDS = 100
     }
 }

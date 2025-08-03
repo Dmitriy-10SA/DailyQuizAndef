@@ -21,4 +21,5 @@ sealed class QuizScreenIntent {
     ) : QuizScreenIntent()
 
     data class ChangeErrorDialogVisible(val isVisible: Boolean) : QuizScreenIntent()
+    data class ChangeTimeOverDialogVisible(val isVisible: Boolean) : QuizScreenIntent()
 }

@@ -51,6 +51,10 @@ class QuizScreenViewModel @Inject constructor(
                 _state.value = _state.value.copy(errorDialogVisible = intent.isVisible)
             }
 
+            is QuizScreenIntent.ChangeTimeOverDialogVisible -> {
+                _state.value = _state.value.copy(timeOverDialogVisible = intent.isVisible)
+            }
+
             is QuizScreenIntent.SaveResults -> {
                 saveResults(onSuccess = intent.onSuccess, onError = intent.onError)
             }

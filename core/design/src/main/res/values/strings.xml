@@ -16,6 +16,8 @@
     <string name="question">Вопрос</string>
     <string name="from">из</string>
     <string name="oops_error">Упс! Ошибка!</string>
+    <string name="time_over">Время вышло!</string>
+    <string name="time_over_description">Вы не успели завершить викторину. Попробуйте еще раз!</string>
     <string name="save_quiz_error">К сожалению, не удалось сохранить данные.</string>
     <string name="remains_to_choose_dif">Осталось выбрать категорию и сложность викторины.</string>
     <string name="start_quiz">НАЧАТЬ ВИКТОРИНУ</string>
