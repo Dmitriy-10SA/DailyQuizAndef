@@ -35,6 +35,12 @@ import com.andef.dailyquiz.core.design.card.ui.UiCard
 import com.andef.dailyquiz.core.design.rating.ui.UiRating
 import com.andef.dailyquiz.quiz.domain.entities.Question
 
+/**
+ * Экран отображения результатов викторины.
+ *
+ * Показывает количество правильных ответов, карточку с рейтингом и
+ * список всех вопросов с пользовательскими ответами.
+ */
 @Composable
 fun ResultScreen(
     correctAnsCnt: Int,
@@ -93,6 +99,12 @@ fun ResultScreen(
     }
 }
 
+/**
+ * Карточка с описанием конкретного вопроса и ответами пользователя.
+ *
+ * Показывает текст вопроса, список вариантов ответов с цветовой индикацией
+ * (правильный, неправильный, не выбранный), а также номер текущего вопроса.
+ */
 @Composable
 private fun QuestionDescriptionCard(
     index: Int,
@@ -161,6 +173,12 @@ private fun QuestionDescriptionCard(
     }
 }
 
+/**
+ * Верхняя карточка с итогами квиза.
+ *
+ * Содержит количество правильных ответов, визуальный рейтинг,
+ * общее описание результатов и кнопку "Повторить".
+ */
 @Composable
 private fun ResultTopCard(correctAnsCnt: Int, questions: List<Question>, onRetryClick: () -> Unit) {
     UiCard(

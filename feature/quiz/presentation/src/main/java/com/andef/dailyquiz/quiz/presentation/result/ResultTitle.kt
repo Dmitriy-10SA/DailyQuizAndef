@@ -4,6 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.andef.dailyquiz.core.design.R
 
+/**
+ * Получить заголовок результата в зависимости от количества правильных ответов.
+ *
+ * Используется для отображения оценки результата квиза.
+ *
+ * @param correctAnsCnt Количество правильных ответов.
+ * @return Локализованная строка-заголовок.
+ *
+ * @throws IllegalArgumentException Если количество ответов вне диапазона [0..5].
+ */
 @Composable
 fun getResultTitle(correctAnsCnt: Int): String {
     return when (correctAnsCnt) {
@@ -17,6 +27,16 @@ fun getResultTitle(correctAnsCnt: Int): String {
     }
 }
 
+/**
+ * Получить описание результата в зависимости от количества правильных ответов.
+ *
+ * Предоставляет мотивационное или информативное сообщение после квиза.
+ *
+ * @param correctAnsCnt Количество правильных ответов.
+ * @return Локализованное описание результата.
+ *
+ * @throws IllegalArgumentException Если количество ответов вне диапазона [0..5].
+ */
 @Composable
 fun getResultDescription(correctAnsCnt: Int): String {
     return when (correctAnsCnt) {
