@@ -4,8 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -190,44 +194,55 @@ private fun ColumnScope.QuestionCard(
             .padding(top = 24.dp)
             .padding(horizontal = 20.dp)
     ) {
-        UiTimer(
-            modifier = Modifier.fillMaxWidth(),
-            currentTimeSeconds = state.value.currentTimeSeconds,
-            totalTimeSeconds = QuizScreenState.TOTAL_TIME_SECONDS
-        )
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            QuestionCardTitleAndSubtitle(
-                currentQuestionIndex = currentQuestionIndex,
-                currentQuestion = currentQuestion,
-                questionsSize = state.value.questions.size
+            Spacer(modifier = Modifier.height(24.dp))
+            UiTimer(
+                modifier = Modifier.fillMaxWidth(),
+                currentTimeSeconds = state.value.currentTimeSeconds,
+                totalTimeSeconds = QuizScreenState.TOTAL_TIME_SECONDS
             )
+            Spacer(modifier = Modifier.height(40.dp))
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                state.value.shuffledAnswers[currentQuestionIndex].forEach { answer ->
-                    UiAnswerOption(
-                        text = answer,
-                        modifier = Modifier.fillMaxWidth(),
-                        enabled = !state.value.showRightAnswer,
-                        type = getUiAnswerOptionType(state = state, answer = answer),
-                        onClick = { onAnswerClick(answer) }
-                    )
+                QuestionCardTitleAndSubtitle(
+                    currentQuestionIndex = currentQuestionIndex,
+                    currentQuestion = currentQuestion,
+                    questionsSize = state.value.questions.size
+                )
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    state.value.shuffledAnswers[currentQuestionIndex].forEach { answer ->
+                        UiAnswerOption(
+                            text = answer,
+                            modifier = Modifier.fillMaxWidth(),
+                            enabled = !state.value.showRightAnswer,
+                            type = getUiAnswerOptionType(state = state, answer = answer),
+                            onClick = { onAnswerClick(answer) }
+                        )
+                    }
                 }
             }
+            Spacer(modifier = Modifier.height(40.dp))
+            UiButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onNextClick,
+                text = stringResource(R.string.further),
+                enabled = state.value.userAnswers[state.value.currentQuestionIndex] != null &&
+                        !state.value.showRightAnswer
+            )
+            Spacer(modifier = Modifier.height(24.dp))
         }
-        UiButton(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = onNextClick,
-            text = stringResource(R.string.further),
-            enabled = state.value.userAnswers[state.value.currentQuestionIndex] != null &&
-                    !state.value.showRightAnswer
-        )
     }
 }
 

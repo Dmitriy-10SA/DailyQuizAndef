@@ -4,8 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -97,20 +101,31 @@ private fun ColumnScope.MainContent(
             .padding(top = 52.dp)
             .padding(horizontal = 20.dp)
     ) {
-        TitleAndSubtitleForUiCard()
-        FilterMenus(
-            state = state,
-            onQuizCategoryExpandedChange = onQuizCategoryExpandedChange,
-            onQuizCategoryClick = onQuizCategoryClick,
-            onQuizDifficultyClick = onQuizDifficultyClick,
-            onQuizDifficultyExpandedChange = onQuizDifficultyExpandedChange
-        )
-        UiButton(
-            modifier = Modifier.fillMaxWidth(),
-            onClick = onStartQuizButtonClick,
-            text = stringResource(R.string.further),
-            enabled = state.value.furtherButtonEnabled
-        )
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Spacer(modifier = Modifier.height(24.dp))
+            TitleAndSubtitleForUiCard()
+            Spacer(modifier = Modifier.height(40.dp))
+            FilterMenus(
+                state = state,
+                onQuizCategoryExpandedChange = onQuizCategoryExpandedChange,
+                onQuizCategoryClick = onQuizCategoryClick,
+                onQuizDifficultyClick = onQuizDifficultyClick,
+                onQuizDifficultyExpandedChange = onQuizDifficultyExpandedChange
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            UiButton(
+                modifier = Modifier.fillMaxWidth(),
+                onClick = onStartQuizButtonClick,
+                text = stringResource(R.string.further),
+                enabled = state.value.furtherButtonEnabled
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+        }
     }
 }
 

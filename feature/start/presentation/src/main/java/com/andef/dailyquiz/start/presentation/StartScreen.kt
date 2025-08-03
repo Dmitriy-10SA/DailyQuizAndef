@@ -1,12 +1,17 @@
 package com.andef.dailyquiz.start.presentation
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,21 +74,31 @@ fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValu
 @Composable
 private fun WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> Unit) {
     UiCard(modifier = modifier) {
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(com.andef.dailyquiz.core.design.R.string.welcome_to_daily_quiz),
-            fontSize = 28.sp,
-            fontWeight = FontWeight.W700,
-            letterSpacing = 0.sp,
-            lineHeight = 28.sp,
-            textAlign = TextAlign.Center,
-            color = Black
-        )
-        UiButton(
-            modifier = Modifier.fillMaxWidth(),
-            text = stringResource(com.andef.dailyquiz.core.design.R.string.start_quiz),
-            onClick = onStartClick
-        )
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(24.dp))
+            Text(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(com.andef.dailyquiz.core.design.R.string.welcome_to_daily_quiz),
+                fontSize = 28.sp,
+                fontWeight = FontWeight.W700,
+                letterSpacing = 0.sp,
+                lineHeight = 28.sp,
+                textAlign = TextAlign.Center,
+                color = Black
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            UiButton(
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(com.andef.dailyquiz.core.design.R.string.start_quiz),
+                onClick = onStartClick
+            )
+            Spacer(modifier = Modifier.height(24.dp))
+        }
     }
 }
 

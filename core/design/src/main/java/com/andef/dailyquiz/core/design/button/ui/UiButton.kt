@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.andef.dailyquiz.core.design.MediumGray
@@ -47,7 +48,8 @@ fun UiButton(
                 fontFamily = FontFamily(Font(R.font.inter)),
                 fontWeight = FontWeight.W900,
                 lineHeight = 16.sp,
-                letterSpacing = 0.sp
+                letterSpacing = 0.sp,
+                textAlign = TextAlign.Center
             )
             if (type is UiButtonType.WithIcon) {
                 Icon(
