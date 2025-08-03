@@ -27,6 +27,11 @@ import com.andef.dailyquiz.core.design.LightGray
 import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.answer.option.type.UiAnswerOptionType
 
+/**
+ * UI компонент варианта ответа
+ *
+ * @see UiAnswerOptionType
+ */
 @Composable
 fun UiAnswerOption(
     modifier: Modifier = Modifier,

@@ -5,7 +5,18 @@ import com.andef.dailyquiz.core.design.DeepPurple
 import com.andef.dailyquiz.core.design.Green
 import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.Red
+import com.andef.dailyquiz.core.design.answer.option.ui.UiAnswerOption
 
+/**
+ * Тип для UI компонента варианта ответа
+ *
+ * @property Wrong неверный вариант ответа
+ * @property Right верный вариант ответа
+ * @property Selected текущий (выбранный) вариант ответа (без уточнения верности)
+ * @property Default невыбранный вариант ответа (без уточнения верности), по умолчанию
+ *
+ * @see UiAnswerOption
+ */
 sealed class UiAnswerOptionType(val iconResId: Int, val borderColor: Color?) {
     data object Wrong : UiAnswerOptionType(
         iconResId = R.drawable.wrong_radio_button,
