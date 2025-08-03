@@ -14,6 +14,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * ViewModel для экрана выбора фильтров квиза.
+ *
+ * Обрабатывает действия пользователя, изменяет состояние экрана и загружает вопросы с помощью [LoadQuestionsUseCase].
+ */
 class FilterQuizViewModel @Inject constructor(
     private val loadQuestionsUseCase: LoadQuestionsUseCase
 ) : ViewModel() {
@@ -44,6 +49,12 @@ class FilterQuizViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Загружает вопросы и формирует список перемешанных ответов.
+     *
+     * @param onSuccess Колбэк при успешной загрузке.
+     * @param onError Колбэк при ошибке загрузки.
+     */
     private fun loadQuestions(
         onSuccess: (List<Question>, List<List<String>>, QuizCategory, QuizDifficulty) -> Unit,
         onError: (Int) -> Unit
@@ -77,6 +88,9 @@ class FilterQuizViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Обновляет состояние [FilterQuizState] с учетом новых значений.
+     */
     private fun stateChange(
         quizCategory: QuizCategory? = _state.value.quizCategory,
         quizDifficulty: QuizDifficulty? = _state.value.quizDifficulty,
