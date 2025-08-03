@@ -1,5 +1,6 @@
 package com.andef.dailyquiz.core.data.network
 
+import com.andef.dailyquiz.quiz.data.api.QuestionApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -12,6 +13,6 @@ class ApiFactory {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-
+        val questionApiService: QuestionApiService = retrofit.create(QuestionApiService::class.java)
     }
 }

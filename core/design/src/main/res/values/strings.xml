@@ -5,6 +5,25 @@
     <string name="history_icon">Иконка история</string>
     <string name="answer_result_icon">Иконка результата ответа</string>
     <string name="close">ЗАКРЫТЬ</string>
+    <string name="further">ДАЛЕЕ</string>
+    <string name="back">Назад</string>
+    <string name="daily_quiz_logo">Логотип приложения DAILY QUIZ</string>
+    <string name="category">Категория</string>
+    <string name="difficulty">Сложность</string>
+    <string name="history">История</string>
+    <string name="welcome_to_daily_quiz">Добро пожаловать в DailyQuiz!</string>
+    <string name="almost_ready">Почти готовы!</string>
+    <string name="retry">НАЧАТЬ ЗАНОВО</string>
+    <string name="question">Вопрос</string>
+    <string name="from">из</string>
+    <string name="oops_error">Упс! Ошибка!</string>
+    <string name="time_over">Время вышло!</string>
+    <string name="time_over_description">Вы не успели завершить викторину. Попробуйте еще раз!</string>
+    <string name="save_quiz_error">К сожалению, не удалось сохранить данные.</string>
+    <string name="remains_to_choose_dif">Осталось выбрать категорию и сложность викторины.</string>
+    <string name="start_quiz">НАЧАТЬ ВИКТОРИНУ</string>
+    <string name="results">Результаты</string>
+    <string name="error_toast_msg">Ошибка! Попробуйте ещё раз!</string>
 
     <string name="category_general_knowledge">Общие знания</string>
     <string name="category_entertainment_books">Книги</string>
@@ -34,4 +53,17 @@
     <string name="difficulty_easy">Низкая</string>
     <string name="difficulty_medium">Средняя</string>
     <string name="difficulty_hard">Высокая</string>
+
+    <string name="result_5_title">Идеально!</string>
+    <string name="result_5_description">5/5 — вы ответили на всё правильно. Это блестящий результат!</string>
+    <string name="result_4_title">Почти идеально!</string>
+    <string name="result_4_description">4/5 — очень близко к совершенству. Ещё один шаг!</string>
+    <string name="result_3_title">Хороший результат!</string>
+    <string name="result_3_description">3/5 — вы на верном пути. Продолжайте тренироваться!</string>
+    <string name="result_2_title">Есть над чем поработать</string>
+    <string name="result_2_description">2/5 — не расстраивайтесь, попробуйте ещё раз!</string>
+    <string name="result_1_title">Сложный вопрос?</string>
+    <string name="result_1_description">1/5 — иногда просто не ваш день. Следующая попытка будет лучше!</string>
+    <string name="result_0_title">Бывает и так!</string>
+    <string name="result_0_description">0/5 — не отчаивайтесь. Начните заново и удивите себя!</string>
 </resources>

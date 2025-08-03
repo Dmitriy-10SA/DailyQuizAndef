@@ -1,7 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="daily_quiz_logo">Логотип приложения DAILY QUIZ</string>
-    <string name="history">История</string>
-    <string name="welcome_to_daily_quiz">Добро пожаловать в DailyQuiz!</string>
-    <string name="start_quiz">НАЧАТЬ ВИКТОРИНУ</string>
 </resources>
