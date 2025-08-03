@@ -65,7 +65,8 @@ fun CollectScreen(
                                 snackbarHostState.currentSnackbarData?.dismiss()
                                 snackbarHostState.showSnackbar(context.getString(msgResId))
                             }
-                        }
+                        },
+                        onBack = navHostController::popBackStack
                     )
                 }
 

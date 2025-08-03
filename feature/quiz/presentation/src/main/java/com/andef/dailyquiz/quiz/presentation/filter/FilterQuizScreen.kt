@@ -4,10 +4,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
@@ -28,6 +30,7 @@ import com.andef.dailyquiz.core.design.Black
 import com.andef.dailyquiz.core.design.R
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
+import com.andef.dailyquiz.core.design.icon.button.ui.UiIconButton
 import com.andef.dailyquiz.core.design.loading.ui.UiLoading
 import com.andef.dailyquiz.core.design.menu.ui.UiMenu
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
@@ -41,7 +44,8 @@ import com.andef.dailyquiz.quiz.domain.entities.Question
 fun ColumnScope.FilterQuizScreen(
     viewModelFactory: ViewModelFactory,
     onSuccessQuestionsLoad: (List<Question>, List<List<String>>, QuizCategory, QuizDifficulty) -> Unit,
-    onErrorQuestionsLoad: (Int) -> Unit
+    onErrorQuestionsLoad: (Int) -> Unit,
+    onBack: () -> Unit
 ) {
     val viewModel: FilterQuizViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
@@ -71,7 +75,8 @@ fun ColumnScope.FilterQuizScreen(
                             onError = onErrorQuestionsLoad
                         )
                     )
-                }
+                },
+                onBack = onBack
             )
         }
     }
@@ -84,17 +89,31 @@ private fun ColumnScope.MainContent(
     onQuizCategoryExpandedChange: (Boolean) -> Unit,
     onQuizDifficultyClick: (QuizDifficulty) -> Unit,
     onQuizDifficultyExpandedChange: (Boolean) -> Unit,
-    onStartQuizButtonClick: () -> Unit
+    onStartQuizButtonClick: () -> Unit,
+    onBack: () -> Unit
 ) {
-    Image(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 41.dp)
-            .padding(horizontal = 90.dp),
-        contentScale = ContentScale.FillWidth,
-        painter = painterResource(R.drawable.logo),
-        contentDescription = stringResource(R.string.daily_quiz_logo)
-    )
+            .padding(horizontal = 20.dp)
+            .padding(top = 41.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        UiIconButton(
+            modifier = Modifier.size(36.dp),
+            icon = painterResource(R.drawable.arrow_back),
+            contentDescription = stringResource(R.string.back),
+            onClick = onBack
+        )
+        Image(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 34.dp, end = 70.dp),
+            contentScale = ContentScale.FillWidth,
+            painter = painterResource(R.drawable.logo),
+            contentDescription = stringResource(R.string.daily_quiz_logo)
+        )
+    }
     UiCard(
         modifier = Modifier
             .fillMaxWidth()

@@ -6,6 +6,7 @@
     <string name="answer_result_icon">Иконка результата ответа</string>
     <string name="close">ЗАКРЫТЬ</string>
     <string name="further">ДАЛЕЕ</string>
+    <string name="back">Назад</string>
     <string name="daily_quiz_logo">Логотип приложения DAILY QUIZ</string>
     <string name="category">Категория</string>
     <string name="difficulty">Сложность</string>
