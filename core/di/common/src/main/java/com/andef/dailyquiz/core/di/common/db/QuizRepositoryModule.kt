@@ -6,6 +6,12 @@ import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton
 
+/**
+ * DI для репозитория по работе с викторинами
+ *
+ * @see QuizRepositoryImpl
+ * @see QuizRepository
+ */
 @Module
 interface QuizRepositoryModule {
     @Binds

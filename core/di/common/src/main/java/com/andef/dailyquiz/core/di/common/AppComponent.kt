@@ -13,6 +13,18 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
+/**
+ * DI компонент
+ *
+ * @property viewModelFactory фабрика для создания вью-моделей
+ *
+ * @see QuizDaoModule
+ * @see QuizRepositoryModule
+ * @see QuizViewModelModule
+ * @see QuestionRepositoryModule
+ * @see QuestionApiServiceModule
+ * @see HistoryViewModelModule
+ */
 @Component(
     modules = [
         //core:data
