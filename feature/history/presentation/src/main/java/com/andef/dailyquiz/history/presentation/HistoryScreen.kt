@@ -136,6 +136,8 @@ private fun MainContent(
                 correctAnsCnt = quiz.correctAnswersCnt,
                 date = quiz.date,
                 time = quiz.time,
+                category = quiz.category,
+                difficulty = quiz.difficulty,
                 onDismiss = { selectedQuiz.value = null },
                 onLongClick = { selectedQuiz.value = quiz },
                 onDeleteClick = {

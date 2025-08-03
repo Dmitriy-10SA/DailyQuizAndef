@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,6 +35,10 @@ import com.andef.dailyquiz.core.design.DeepPurple
 import com.andef.dailyquiz.core.design.White
 import com.andef.dailyquiz.core.design.card.ui.UiCard
 import com.andef.dailyquiz.core.design.rating.ui.UiRating
+import com.andef.dailyquiz.core.domain.entites.QuizCategory
+import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
+import com.andef.dailyquiz.core.utils.getQuizCategoryAsString
+import com.andef.dailyquiz.core.utils.getQuizDifficultyAsString
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
@@ -47,6 +52,8 @@ import java.util.Locale
 fun HistoryItemCard(
     modifier: Modifier = Modifier,
     quizId: Long,
+    category: QuizCategory,
+    difficulty: QuizDifficulty,
     correctAnsCnt: Int,
     date: LocalDate,
     time: LocalTime,
@@ -111,6 +118,36 @@ fun HistoryItemCard(
                         letterSpacing = 0.sp,
                         lineHeight = 12.sp,
                         fontSize = 12.sp
+                    )
+                }
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "${stringResource(com.andef.dailyquiz.core.design.R.string.category)}:" +
+                                " ${getQuizCategoryAsString(category)}",
+                        fontWeight = FontWeight.W400,
+                        color = Black,
+                        fontFamily = FontFamily(Font(com.andef.dailyquiz.core.design.R.font.inter)),
+                        letterSpacing = 0.sp,
+                        lineHeight = 12.sp,
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
+                    )
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        text = "${stringResource(com.andef.dailyquiz.core.design.R.string.difficulty)}:" +
+                                " ${getQuizDifficultyAsString(difficulty)}",
+                        fontWeight = FontWeight.W400,
+                        color = Black,
+                        fontFamily = FontFamily(Font(com.andef.dailyquiz.core.design.R.font.inter)),
+                        letterSpacing = 0.sp,
+                        lineHeight = 12.sp,
+                        fontSize = 12.sp,
+                        textAlign = TextAlign.Center
                     )
                 }
             }
