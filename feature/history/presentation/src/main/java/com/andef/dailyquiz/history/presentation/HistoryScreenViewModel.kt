@@ -2,6 +2,7 @@ package com.andef.dailyquiz.history.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andef.dailyquiz.core.design.R
 import com.andef.dayliquiz.history.domain.DeleteQuizUseCase
 import com.andef.dayliquiz.history.domain.GetQuizzesUseCase
 import kotlinx.coroutines.Dispatchers
@@ -63,7 +64,7 @@ class HistoryScreenViewModel @Inject constructor(
                 withContext(Dispatchers.IO) { deleteQuizUseCase.invoke(quizId) }
                 onSuccess()
             } catch (_: Exception) {
-                onError(com.andef.dailyquiz.core.design.R.string.error_toast_msg)
+                onError(R.string.error_toast_msg)
             } finally {
                 _state.value = _state.value.copy(isLoading = false)
             }
