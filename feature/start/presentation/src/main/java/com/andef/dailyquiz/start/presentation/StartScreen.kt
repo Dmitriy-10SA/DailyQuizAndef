@@ -2,6 +2,7 @@ package com.andef.dailyquiz.start.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -76,7 +77,7 @@ fun StartScreen(navHostController: NavHostController, paddingValues: PaddingValu
  * Карточка с приветствием (добро пожаловать) и кнопкой начала викторины
  */
 @Composable
-private fun WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> Unit) {
+private fun ColumnScope.WelcomeCardWithStartButton(modifier: Modifier, onStartClick: () -> Unit) {
     UiCard(modifier = modifier) {
         Column(
             modifier = Modifier

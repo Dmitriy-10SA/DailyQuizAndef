@@ -291,7 +291,7 @@ private fun ColumnScope.QuestionCard(
  * - сам текст вопроса.
  */
 @Composable
-private fun QuestionCardTitleAndSubtitle(
+private fun ColumnScope.QuestionCardTitleAndSubtitle(
     currentQuestionIndex: Int,
     currentQuestion: Question,
     questionsSize: Int
