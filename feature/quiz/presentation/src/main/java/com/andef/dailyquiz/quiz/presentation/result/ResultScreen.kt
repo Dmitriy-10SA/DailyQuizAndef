@@ -161,7 +161,7 @@ private fun LazyItemScope.QuestionDescriptionCard(
                 if (answerIndex != 0) Spacer(modifier = Modifier.height(16.dp))
                 UiAnswerOption(
                     modifier = Modifier.fillMaxWidth(),
-                    text = question.text,
+                    text = answer,
                     enabled = false,
                     type = when {
                         userAnswers[index] == answer && answer == question.correctAnswer -> UiAnswerOptionType.Right
