@@ -47,12 +47,14 @@ fun CollectScreen(
                 CollectScreenStep.Filter -> {
                     FilterQuizScreen(
                         viewModelFactory = viewModelFactory,
-                        onSuccessQuestionsLoad = { questions, shuffledAnswers ->
+                        onSuccessQuestionsLoad = { questions, shuffledAnswers, category, difficulty ->
                             viewModel.send(
                                 CollectScreenIntent.StepChange(
                                     step = CollectScreenStep.Quiz(
                                         questions = questions,
-                                        shuffledAnswers = shuffledAnswers
+                                        shuffledAnswers = shuffledAnswers,
+                                        category = category,
+                                        difficulty = difficulty,
                                     )
                                 )
                             )
@@ -70,11 +72,28 @@ fun CollectScreen(
                     QuizScreen(
                         questions = step.questions,
                         shuffledAnswers = step.shuffledAnswers,
-                        viewModelFactory = viewModelFactory
+                        category = step.category,
+                        difficulty = step.difficulty,
+                        viewModelFactory = viewModelFactory,
+                        onSuccessFinished = { correctAnsCnt, userAnswers, questions ->
+                            viewModel.send(
+                                CollectScreenIntent.StepChange(
+                                    step = CollectScreenStep.Result(
+                                        correctAnsCnt = correctAnsCnt,
+                                        userAnswers = userAnswers,
+                                        questions = questions
+                                    )
+                                )
+                            )
+                        },
+                        onFailureAddQuiz = navHostController::popBackStack,
+                        onFailureFinished = {
+                            TODO("Сообщение время вышло!")
+                        }
                     )
                 }
 
-                CollectScreenStep.Result -> {
+                is CollectScreenStep.Result -> {
 
                 }
             }

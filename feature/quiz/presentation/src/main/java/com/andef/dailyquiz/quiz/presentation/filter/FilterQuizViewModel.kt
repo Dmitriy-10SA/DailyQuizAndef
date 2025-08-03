@@ -45,7 +45,7 @@ class FilterQuizViewModel @Inject constructor(
     }
 
     private fun loadQuestions(
-        onSuccess: (List<Question>, List<List<String>>) -> Unit,
+        onSuccess: (List<Question>, List<List<String>>, QuizCategory, QuizDifficulty) -> Unit,
         onError: (Int) -> Unit
     ) {
         viewModelScope.launch {
@@ -68,7 +68,7 @@ class FilterQuizViewModel @Inject constructor(
                         }
                     }
                 }
-                onSuccess(questions, shuffledAnswers)
+                onSuccess(questions, shuffledAnswers, quizCategory, quizDifficulty)
             } catch (_: Exception) {
                 onError(R.string.error_toast_msg)
             } finally {

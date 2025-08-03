@@ -36,7 +36,7 @@ import com.andef.dailyquiz.quiz.domain.entities.Question
 @Composable
 fun ColumnScope.FilterQuizScreen(
     viewModelFactory: ViewModelFactory,
-    onSuccessQuestionsLoad: (List<Question>, List<List<String>>) -> Unit,
+    onSuccessQuestionsLoad: (List<Question>, List<List<String>>, QuizCategory, QuizDifficulty) -> Unit,
     onErrorQuestionsLoad: (Int) -> Unit
 ) {
     val viewModel: FilterQuizViewModel = viewModel(factory = viewModelFactory)

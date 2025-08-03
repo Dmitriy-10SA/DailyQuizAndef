@@ -28,21 +28,59 @@ import com.andef.dailyquiz.core.design.answer.option.type.UiAnswerOptionType
 import com.andef.dailyquiz.core.design.answer.option.ui.UiAnswerOption
 import com.andef.dailyquiz.core.design.button.ui.UiButton
 import com.andef.dailyquiz.core.design.card.ui.UiCard
+import com.andef.dailyquiz.core.design.dialog.type.UiDialogType
+import com.andef.dailyquiz.core.design.dialog.ui.UiDialog
 import com.andef.dailyquiz.core.design.loading.ui.UiLoading
 import com.andef.dailyquiz.core.design.timer.ui.UiTimer
 import com.andef.dailyquiz.core.di.viewmodel.ViewModelFactory
+import com.andef.dailyquiz.core.domain.entites.QuizCategory
+import com.andef.dailyquiz.core.domain.entites.QuizDifficulty
 import com.andef.dailyquiz.quiz.domain.entities.Question
 
 @Composable
 fun ColumnScope.QuizScreen(
     questions: List<Question>,
+    category: QuizCategory,
+    difficulty: QuizDifficulty,
+    onSuccessFinished: (Int, Map<Int, String>, List<Question>) -> Unit,
+    onFailureAddQuiz: () -> Unit,
+    onFailureFinished: () -> Unit,
     shuffledAnswers: List<List<String>>,
     viewModelFactory: ViewModelFactory
 ) {
     val viewModel: QuizScreenViewModel = viewModel(factory = viewModelFactory)
     val state = viewModel.state.collectAsState()
 
-    InitEffect(viewModel = viewModel, questions = questions, shuffledAnswers = shuffledAnswers)
+    LaunchedEffect(Unit) {
+        viewModel.send(
+            QuizScreenIntent.InitQuestionsAndTimer(
+                questions = questions,
+                shuffledAnswers = shuffledAnswers,
+                category = category,
+                difficulty = difficulty,
+                onQuizFinished = { success ->
+                    when (success) {
+                        true -> {
+                            viewModel.send(
+                                QuizScreenIntent.SaveResults(
+                                    onSuccess = onSuccessFinished,
+                                    onError = {
+                                        viewModel.send(
+                                            QuizScreenIntent.ChangeErrorDialogVisible(true)
+                                        )
+                                    }
+                                )
+                            )
+                        }
+
+                        false -> {
+                            onFailureFinished()
+                        }
+                    }
+                }
+            )
+        )
+    }
 
     when (state.value.isLoading) {
         true -> UiLoading()
@@ -56,6 +94,16 @@ fun ColumnScope.QuizScreen(
             )
         }
     }
+    UiDialog(
+        type = UiDialogType.WithDismissButton,
+        isVisible = state.value.errorDialogVisible,
+        title = stringResource(R.string.oops_error),
+        subTitle = stringResource(R.string.save_quiz_error),
+        onDismissRequest = {
+            viewModel.send(QuizScreenIntent.ChangeErrorDialogVisible(false))
+            onFailureAddQuiz()
+        }
+    )
 }
 
 @Composable
@@ -177,27 +225,5 @@ private fun getUiAnswerOptionType(
         showRightAnswer && answer == userAnswer && answer != correctAnswer -> UiAnswerOptionType.Wrong
         !showRightAnswer && answer == userAnswer -> UiAnswerOptionType.Selected
         else -> UiAnswerOptionType.Default
-    }
-}
-
-@Composable
-private fun InitEffect(
-    viewModel: QuizScreenViewModel,
-    shuffledAnswers: List<List<String>>,
-    questions: List<Question>
-) {
-    LaunchedEffect(Unit) {
-        viewModel.send(
-            QuizScreenIntent.InitQuestionsAndTimer(
-                questions = questions,
-                shuffledAnswers = shuffledAnswers,
-                onQuizFinished = { success ->
-                    when (success) {
-                        true -> TODO("Добавляем в базу данных. Бла-бла-бла")
-                        false -> TODO("Показываем время вышло. Бла-бла-бла")
-                    }
-                }
-            )
-        )
     }
 }

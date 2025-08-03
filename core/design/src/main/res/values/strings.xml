@@ -12,8 +12,11 @@
     <string name="history">История</string>
     <string name="welcome_to_daily_quiz">Добро пожаловать в DailyQuiz!</string>
     <string name="almost_ready">Почти готовы!</string>
+    <string name="retry">НАЧАТЬ ЗАНОВО</string>
     <string name="question">Вопрос</string>
     <string name="from">из</string>
+    <string name="oops_error">Упс! Ошибка!</string>
+    <string name="save_quiz_error">К сожалению, не удалось сохранить данные.</string>
     <string name="remains_to_choose_dif">Осталось выбрать категорию и сложность викторины.</string>
     <string name="start_quiz">НАЧАТЬ ВИКТОРИНУ</string>
     <string name="error_toast_msg">Ошибка! Попробуйте ещё раз!</string>
